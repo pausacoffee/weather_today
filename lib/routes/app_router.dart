@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../modules/home/home_page.dart';
+import '../modules/geo/view/geo_page.dart';
+import '../modules/home/view/home_page.dart';
 import '../modules/splash/splash_page.dart';
 import '../service/app_service.dart';
 import '../utils/errorPage.dart';
@@ -26,7 +27,37 @@ class AppRouter {
         builder: (BuildContext context, GoRouterState state) {
           return const HomePage();
         },
-        //routes:  //GetX처럼 서브 루트가능
+        routes: [
+          /// sub Page를 설정할수 있다.
+          GoRoute(
+            path: APP_PAGE.geo.toPath,
+            name: APP_PAGE.geo.toName,
+
+            /// page transition을 설정할 수 있다.
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const GeoPage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                /// Fade In/Out Slide animation
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.ease;
+
+                final tween = Tween(begin: begin, end: end);
+                final curvedAnimation =
+                    CurvedAnimation(parent: animation, curve: curve);
+
+                return SlideTransition(
+                  position: tween.animate(curvedAnimation),
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: APP_PAGE.splash.toPath,

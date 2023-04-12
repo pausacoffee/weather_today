@@ -83,12 +83,13 @@ class GlobalPermissionDialog extends StatelessWidget {
                   color: Colors.grey.shade700,
                 ),
               ),
-              onPressed: () =>
-                  controller.handlePermissionDialogCancelOnPressed(),
+              onPressed: () {},
+              //TODO: controller.handlePermissionDialogCancelOnPressed(),
             ),
             CupertinoDialogAction(
               child: const Text('설정'),
-              onPressed: () => controller.handlePermissionReOnPressed(),
+              onPressed:
+                  () {}, //TODO: controller.handlePermissionReOnPressed(),
             ),
           ],
         ),

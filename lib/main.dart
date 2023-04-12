@@ -1,5 +1,14 @@
 /// Goal: provider, goRouter 를 사용하여 날씨앱을 만들자
 /// #<a href='https://pngtree.com/so/Weather'>Weather png from pngtree.com/</a>
+/// TODO:
+/// - API reponse 를 참고하여 response Model 만들기
+/// - "http://api.weatherapi.com/v1" 에 request 를 날려 날씨 결과값 받기
+/// - 날씨 결과값을 UI에 표시하기
+/// - 도시 검색 기능 만들기
+/// - 검색된 도시의 날씨 결과값 받아오고, UI 에 표시하기
+/// - 퍼미션받기(위치 정보)
+/// - '내 위치'로 날씨 결과값 받아오고, UI 에 표시하기
+/// - etc...
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -13,6 +22,7 @@ import 'package:weather_today/service/app_service.dart';
 
 import 'routes/app_router.dart';
 import 'utils/color.dart';
+import 'utils/scroll_behavior.dart';
 
 void main() async {
   await initialize();
@@ -83,6 +93,7 @@ class _MyAppState extends State<MyApp> {
                 scaffoldBackgroundColor: ColorPath.bgColor,
               ),
               debugShowCheckedModeBanner: false,
+              scrollBehavior: AppScrollBehavior(),
             );
           }),
         );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../routes/app_page.dart';
 import '../../service/app_service.dart';
@@ -28,12 +29,12 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(APP_PAGE.splash.toTitle),
-      ),
-      body: const Center(
-        child: CircularProgressIndicator(),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Lottie.network(
+              'https://assets10.lottiefiles.com/packages/lf20_3xfpxnp9.json'),
+        ),
       ),
     );
   }

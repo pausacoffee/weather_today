@@ -20,14 +20,16 @@ class AppService with ChangeNotifier {
 
   ///앱 시작전 필요한 init 을 시행한다.
   Future<void> onAppStart() async {
-    //wait Future.delayed(const Duration(seconds: 2));
     await initialize();
+
+    await Future.delayed(const Duration(seconds: 2));
 
     _initialized = true;
     notifyListeners();
   }
 
-  /// home이 시작되기전 허용, 세팅, 로그인 등을 init함
+  /// home이 시작되기전 허용, 세팅, 로그인 등을 init함.
+  /// 시간 오래 소요되는것 여기!
   Future<void> initialize() async {
     // Http 초기화 (디버그 모드일 경우)
     // if (kDebugMode) {

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_today/routes/app_page.dart';
 
 import '../global/global_dialog_widget.dart';
 import '../models/permission_model.dart';
@@ -32,7 +35,7 @@ class PermissionService extends ChangeNotifier {
   // Funcion ▼ ========================================
 
   /// 권한 허용 버튼
-  Future<dynamic> handlePermissionOnPressed() async {
+  Future<dynamic> handlePermissionOnPressed(BuildContext context) async {
     final Map<Permission, PermissionStatus> permissionStatus = await [
       Permission.camera,
       Permission.photos,
@@ -53,7 +56,7 @@ class PermissionService extends ChangeNotifier {
         case PermissionStatus.granted:
           Logger().d('사용자가 요청한 기능에 대한 액세스 권한을 부여한 경우');
 
-          handlePermissionGranted();
+          handlePermissionGranted(context);
           break;
         case PermissionStatus.limited:
           Logger().d('사용자가 제한된 액세스를 위해 이 애플리케이션을 승인했습니다. iOS(iOS14+)에서만 지원됨');
@@ -77,7 +80,7 @@ class PermissionService extends ChangeNotifier {
           break;
         default:
           // * 여러 권한이 있는 경우에는 해당되지 않을 경우 넘긴다.
-          handlePermissionGranted();
+          handlePermissionGranted(context);
           break;
       }
     }
@@ -86,22 +89,24 @@ class PermissionService extends ChangeNotifier {
   }
 
   /// 모달 취소 버튼
-  Future<dynamic> handlePermissionDialogCancelOnPressed() async {
-    //Get.back();
+  Future<dynamic> handlePermissionDialogCancelOnPressed(
+      BuildContext context) async {
+    context.pop();
   }
 
   /// 권한 재요청
-  Future<dynamic> handlePermissionReOnPressed() async {
-    // Get.back();
-    // openAppSettings();
+  Future<dynamic> handlePermissionReOnPressed(BuildContext context) async {
+    context.pop();
+    openAppSettings();
   }
 
   /// 권한 허용
-  Future<dynamic> handlePermissionGranted() async {
-    // if (isPermissionSuccess.value) {
-    //   await GetStorage().write('initialize_permission', true);
-    //   // Get.back();
-    //   await Get.offAllNamed('/home');
-    // }
+  Future<dynamic> handlePermissionGranted(BuildContext context) async {
+    if (isPermissionSuccess) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('initialize_permission', true);
+
+      context.go(APP_PAGE.home.toName);
+    }
   }
 }
