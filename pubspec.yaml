@@ -41,6 +41,7 @@ dependencies:
   geolocator: ^9.0.2
   fluttertoast: ^8.2.1
   flutter_bounce: ^1.1.0
+  flutter_animate: ^4.1.1+1
   
 
 dev_dependencies:

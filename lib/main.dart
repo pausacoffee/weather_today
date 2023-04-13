@@ -2,11 +2,11 @@
 /// #<a href='https://pngtree.com/so/Weather'>Weather png from pngtree.com/</a>
 /// TODO:
 /// - API reponse 를 참고하여 response Model 만들기(done)
-/// - "http://api.weatherapi.com/v1" 에 request 를 날려 날씨 결과값 받기
+/// - 퍼미션받기(위치 정보)(done)
+/// - "http://api.weatherapi.com/v1" 에 request 를 날려 날씨 결과값 받기(current만)
 /// - 날씨 결과값을 UI에 표시하기
 /// - 도시 검색 기능 만들기
 /// - 검색된 도시의 날씨 결과값 받아오고, UI 에 표시하기
-/// - 퍼미션받기(위치 정보)
 /// - '내 위치'로 날씨 결과값 받아오고, UI 에 표시하기
 /// - etc...
 
@@ -19,7 +19,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_today/service/app_service.dart';
-import 'package:weather_today/service/permission_service.dart';
 
 import 'routes/app_router.dart';
 import 'utils/color.dart';

@@ -51,6 +51,18 @@ abstract class TextStylePath {
     color: ColorPath.textBlack,
   );
 
+  static TextStyle title48w800 = TextStyle(
+    fontSize: 48.sp,
+    fontWeight: FontWeight.bold,
+    color: ColorPath.textBlack,
+  );
+
+  static TextStyle title56w800 = TextStyle(
+    fontSize: 56.sp,
+    fontWeight: FontWeight.bold,
+    color: ColorPath.textBlack,
+  );
+
   // Base
   static TextStyle base16w400 = TextStyle(
     fontSize: 16.sp,

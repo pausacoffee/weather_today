@@ -44,6 +44,8 @@ class AppService with ChangeNotifier {
   /// home이 시작되기전 허용, 세팅, 로그인 등을 init함.
   /// 시간 오래 소요되는것 여기!
   Future<void> initialize() async {
+    await Future.delayed(const Duration(seconds: 2));
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _permissionState = prefs.getBool('initialize_permission') ?? false;
 
