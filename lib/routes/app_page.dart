@@ -1,4 +1,4 @@
-enum APP_PAGE { splash, home, error, geo }
+enum APP_PAGE { splash, home, error, geo, permission }
 
 extension AppPageExtension on APP_PAGE {
   String get toPath {
@@ -9,6 +9,8 @@ extension AppPageExtension on APP_PAGE {
         return "/splash";
       case APP_PAGE.error:
         return "/error";
+      case APP_PAGE.permission:
+        return "/permission";
       //sub
       case APP_PAGE.geo:
         return "geo";
@@ -27,6 +29,8 @@ extension AppPageExtension on APP_PAGE {
         return "ERROR";
       case APP_PAGE.geo:
         return "GEO";
+      case APP_PAGE.permission:
+        return "PERMISSION";
       default:
         return "HOME";
     }
@@ -42,6 +46,8 @@ extension AppPageExtension on APP_PAGE {
         return "My App Error";
       case APP_PAGE.geo:
         return "My App GEO";
+      case APP_PAGE.permission:
+        return "My App Permission";
       default:
         return "My App";
     }

@@ -1,15 +1,18 @@
 import 'dart:async';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppService with ChangeNotifier {
-  AppService();
+  static final AppService _singleton = AppService._internal();
 
+  factory AppService() {
+    return _singleton;
+  }
+
+  AppService._internal();
+
+  // Getter Setter ▼ ========================================
+  //앱에 대한 init 여부
   bool _initialized = false;
   bool get initialized => _initialized;
 
@@ -18,6 +21,16 @@ class AppService with ChangeNotifier {
     notifyListeners();
   }
 
+  //허용 여부
+  bool _permissionState = false;
+  bool get permitted => _permissionState;
+
+  set permitted(bool value) {
+    _permissionState = value;
+    notifyListeners();
+  }
+
+  //Fucntion  ▼ ========================================
   ///앱 시작전 필요한 init 을 시행한다.
   Future<void> onAppStart() async {
     await initialize();
@@ -31,6 +44,9 @@ class AppService with ChangeNotifier {
   /// home이 시작되기전 허용, 세팅, 로그인 등을 init함.
   /// 시간 오래 소요되는것 여기!
   Future<void> initialize() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _permissionState = prefs.getBool('initialize_permission') ?? false;
+
     // Http 초기화 (디버그 모드일 경우)
     // if (kDebugMode) {
     //   HttpOverrides.global = MyHttpOverrides();

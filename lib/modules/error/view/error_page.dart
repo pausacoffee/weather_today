@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../global/global_appbar.dart';
-import 'color.dart';
-import 'text.dart';
+import '../../../global/global_appbar.dart';
+import '../../../utils/color.dart';
+import '../../../utils/text.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key});

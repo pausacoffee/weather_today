@@ -1,7 +1,7 @@
 /// Goal: provider, goRouter 를 사용하여 날씨앱을 만들자
 /// #<a href='https://pngtree.com/so/Weather'>Weather png from pngtree.com/</a>
 /// TODO:
-/// - API reponse 를 참고하여 response Model 만들기
+/// - API reponse 를 참고하여 response Model 만들기(done)
 /// - "http://api.weatherapi.com/v1" 에 request 를 날려 날씨 결과값 받기
 /// - 날씨 결과값을 UI에 표시하기
 /// - 도시 검색 기능 만들기
@@ -19,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_today/service/app_service.dart';
+import 'package:weather_today/service/permission_service.dart';
 
 import 'routes/app_router.dart';
 import 'utils/color.dart';
@@ -57,6 +58,7 @@ class _MyAppState extends State<MyApp> {
           providers: [
             ChangeNotifierProvider<AppService>(create: (_) => appService),
             Provider<AppRouter>(create: (_) => AppRouter(appService)),
+            //Provider<PermissionService>(create: (_) => PermissionService()),
           ],
           child: Builder(builder: (context) {
             final GoRouter goRouter =

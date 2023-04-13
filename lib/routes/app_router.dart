@@ -3,9 +3,10 @@ import 'package:go_router/go_router.dart';
 
 import '../modules/geo/view/geo_page.dart';
 import '../modules/home/view/home_page.dart';
+import '../modules/permission/view/permission_page.dart';
 import '../modules/splash/splash_page.dart';
+import '../modules/error/view/error_page.dart';
 import '../service/app_service.dart';
-import '../utils/errorPage.dart';
 import 'app_page.dart';
 
 class AppRouter {
@@ -66,20 +67,33 @@ class AppRouter {
           return const SplashPage();
         },
       ),
+      GoRoute(
+        path: APP_PAGE.permission.toPath,
+        name: APP_PAGE.permission.toName,
+        builder: (BuildContext context, GoRouterState state) {
+          return PermissionPage();
+        },
+      ),
     ],
     redirect: (BuildContext context, GoRouterState state) {
       final homeLocation = APP_PAGE.home.toPath;
       final splashLocation = APP_PAGE.splash.toPath;
+      final permissionLocation = APP_PAGE.permission.toPath;
 
       final isInitialized = appService.initialized;
+      final ispermitted = appService.permitted;
 
       final isGoingToInit = state.subloc == splashLocation;
+      final isGoingToPermission = state.subloc == permissionLocation;
 
       /// 앱 시작전 권한, 로그인 여부, 세팅 등을 체크하고 route 한다.
       if (!isInitialized && !isGoingToInit) {
         return splashLocation;
-      } else if ((isInitialized && isGoingToInit)) {
-        return homeLocation;
+      } else if (isInitialized && !ispermitted && !isGoingToPermission) {
+        return permissionLocation;
+      } else if ((isInitialized && isGoingToInit) ||
+          (ispermitted && isGoingToPermission)) {
+        return homeLocation; //위 체크가 끝나면 home으로!
       } else {
         // Else Don't do anything
         return null;
