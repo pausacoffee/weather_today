@@ -17,14 +17,19 @@ class ConditionModel {
     required this.code,
   });
 
+  /// Weather condition text
   String text;
+
+  /// Weather icon url
   String icon;
+
+  /// Weather condition unique code.
   int code;
 
   factory ConditionModel.fromJson(Map<String, dynamic> json) => ConditionModel(
         text: json["text"] ?? '',
         icon: json["icon"] ?? '',
-        code: json["code"] ?? 0,
+        code: json["code"] ?? -1,
       );
 
   Map<String, dynamic> toJson() => {

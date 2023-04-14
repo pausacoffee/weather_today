@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../api/weather/weather_api.dart';
+
 class AppService with ChangeNotifier {
+  // Singleton ▼ ========================================
   static final AppService _singleton = AppService._internal();
 
   factory AppService() {
@@ -12,7 +15,7 @@ class AppService with ChangeNotifier {
   AppService._internal();
 
   // Getter Setter ▼ ========================================
-  //앱에 대한 init 여부
+  ///앱에 대한 init 여부
   bool _initialized = false;
   bool get initialized => _initialized;
 
@@ -21,7 +24,7 @@ class AppService with ChangeNotifier {
     notifyListeners();
   }
 
-  //허용 여부
+  ///허용 여부
   bool _permissionState = false;
   bool get permitted => _permissionState;
 
@@ -31,7 +34,7 @@ class AppService with ChangeNotifier {
   }
 
   //Fucntion  ▼ ========================================
-  ///앱 시작전 필요한 init 을 시행한다.
+  ///onAppStart가 완료되면 route redirect됨.
   Future<void> onAppStart() async {
     await initialize();
 
@@ -41,13 +44,16 @@ class AppService with ChangeNotifier {
     notifyListeners();
   }
 
-  /// home이 시작되기전 허용, 세팅, 로그인 등을 init함.
-  /// 시간 오래 소요되는것 여기!
+  /// 앱을 시작하기 위해 필요한 데이터와 세팅 로딩(오래 걸리는 것)
   Future<void> initialize() async {
     await Future.delayed(const Duration(seconds: 2));
 
+    // 최초 permission 체크 한번
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _permissionState = prefs.getBool('initialize_permission') ?? false;
+
+    // fetch current data
+    WeatherApi().handleFetchCurrent();
 
     // Http 초기화 (디버그 모드일 경우)
     // if (kDebugMode) {

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:weather_today/models/weather_location.dart';
-import 'package:weather_today/modules/home/widgets/single_weather_widget.dart';
-import 'package:another_transformer_page_view/another_transformer_page_view.dart';
-import 'package:weather_today/routes/app_page.dart';
+
+import '../../../models/weather_location.dart';
+import '../../../routes/app_page.dart';
+import '../widgets/single_weather_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,16 +53,6 @@ class _HomePageState extends State<HomePage> {
             },
             onPageChanged: null,
           ),
-          // TransformerPageView(
-          //   loop: true,
-          //   transformer: AccordionTransformer(),
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return SingleWeatherWidget(
-          //       index: index,
-          //     );
-          //   },
-          //   itemCount: locationList.length,
-          // )
         ),
       ),
     );

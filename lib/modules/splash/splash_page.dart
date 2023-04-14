@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../service/app_service.dart';
+import '../../routes/app_service.dart';
 import '../../utils/text.dart';
 
 class SplashPage extends StatefulWidget {
@@ -15,6 +18,9 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   late AppService _appService;
+
+  /// 현재 시간
+  DateTime currentDateTime = DateTime.now();
 
   @override
   void initState() {
@@ -47,23 +53,59 @@ class _SplashPageState extends State<SplashPage> {
         .then()
         .fadeOut(curve: Curves.easeOut);
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.amber,
-        body: Center(
-          child: Column(
-            children: [
-              Expanded(
-                child: Lottie.network(
-                    'https://assets10.lottiefiles.com/packages/lf20_3xfpxnp9.json',
-                    fit: BoxFit.contain),
-              ),
-              Expanded(child: title),
-            ],
-            //),
+    return WillPopScope(
+      onWillPop: () => handlePrevBack(context),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.amber[300],
+          body: Center(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Animate(
+                    effects: [
+                      FadeEffect(
+                        duration: 3.seconds,
+                        curve: Curves.fastOutSlowIn,
+                        begin: 0.0,
+                        end: 1.0,
+                      )
+                    ],
+                    child: Lottie.asset('assets/splash-image.json',
+                        fit: BoxFit.contain), //@syeda_maimoona
+                    // child: Lottie.network(
+                    //     'https://assets10.lottiefiles.com/packages/lf20_3xfpxnp9.json',
+                    //     fit: BoxFit.contain),
+                  ),
+                ),
+                Expanded(child: title),
+              ],
+              //),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> handlePrevBack(BuildContext context) async {
+    // 메인 화면에서 뒤로가기 막기
+    final DateTime now = DateTime.now();
+
+    if (now.difference(currentDateTime) > const Duration(milliseconds: 1000)) {
+      currentDateTime = now;
+      Fluttertoast.showToast(
+        msg: '한번 더 누르면 앱이 종료됩니다',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black.withOpacity(0.7),
+        textColor: Colors.white,
+      );
+    } else {
+      exit(0);
+    }
+
+    return false;
   }
 }
