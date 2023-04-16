@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../page/geo/view/geo_page.dart';
+import '../page/address/view/address_page.dart';
 import '../page/home/view/home_page.dart';
 import '../page/permission/view/permission_page.dart';
 import '../page/splash/splash_page.dart';
@@ -30,12 +30,12 @@ class AppRouter {
         routes: [
           /// sub Page를 설정할수 있다.
           GoRoute(
-            path: APP_PAGE.geo.toPath,
-            name: APP_PAGE.geo.toName,
+            path: APP_PAGE.address.toPath,
+            name: APP_PAGE.address.toName,
 
             /// page transition을 설정할 수 있다.
             pageBuilder: (context, state) => CustomTransitionPage(
-              child: const GeoPage(),
+              child: const AddressPage(),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 /// Fade In/Out Slide animation

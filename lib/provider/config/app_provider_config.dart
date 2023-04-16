@@ -3,7 +3,8 @@ import 'package:provider/single_child_widget.dart';
 
 import '../../routes/app_router.dart';
 import '../../routes/app_service.dart';
-import '../view_model/home_view_model.dart';
+import '../../page/address/model/address_view_model.dart';
+import '../../page/home/model/home_view_model.dart';
 
 class AppProviderConfig {
   AppProviderConfig._();
@@ -12,9 +13,10 @@ class AppProviderConfig {
     return [
       ChangeNotifierProvider<HomeViewModel>(
           create: (context) => HomeViewModel()),
+      ChangeNotifierProvider<AddressViewModel>(
+          create: (context) => AddressViewModel()),
       ChangeNotifierProvider<AppService>(create: (_) => AppService()),
       Provider<AppRouter>(create: (_) => AppRouter()),
-      //Provider<PermissionService>(create: (_) => PermissionService()),
     ];
   }
 }

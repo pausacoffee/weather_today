@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../provider/view_model/home_view_model.dart';
+import '../model/home_view_model.dart';
 
 class SingleWeatherWidget extends StatelessWidget {
   const SingleWeatherWidget({super.key, required this.data});

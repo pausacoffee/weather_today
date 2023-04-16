@@ -1,15 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
-import '../../global/global_toast_widget.dart';
-import '../../models/weather/current_model.dart';
-import '../../models/weather/error_model.dart';
-import '../../models/weather/location_model.dart';
-import '../base/base_http.dart';
-import '../base/base_response_model.dart';
+import '../global/global_toast_widget.dart';
+import '../models/weather/error_model.dart';
+import 'base/base_http.dart';
+import 'base/base_response_model.dart';
 
 /// 날씨 API
 class WeatherApi {
@@ -25,7 +21,7 @@ class WeatherApi {
       BaseResponseModel response = await BaseHttp.dio(
           method: 'GET',
           url:
-              '/current.json?key=${dotenv.env['APP_API_KEY']!}&q=$location&aqi=no');
+              '${dotenv.env["APP_API_URL"]}&key=${dotenv.env['APP_API_KEY']!}&q=$location');
 
       switch (response.statusCode) {
         case 200:

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../api/weather/weather_api.dart';
+import '../api/weather_api.dart';
 
 class AppService with ChangeNotifier {
   // Singleton ▼ ========================================

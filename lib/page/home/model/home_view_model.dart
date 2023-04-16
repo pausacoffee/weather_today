@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:weather_today/api/weather/weather_api.dart';
+import 'package:weather_today/api/weather_api.dart';
 
-import '../../api/base/base_response_model.dart';
-import '../../models/weather/current_model.dart';
-import '../../models/weather/location_model.dart';
+import '../../../api/base/base_response_model.dart';
+import '../../../models/weather/current_model.dart';
+import '../../../models/weather/location_model.dart';
 
 ///HomePage에서 필요한 데이터들은 불러오고, notify 함.
 class HomeViewModel extends ChangeNotifier {
@@ -28,7 +28,7 @@ class HomeViewModel extends ChangeNotifier {
 
   // Getter/Settter ▼ ==========================================
   /// 데이터 로딩
-  bool get isLoding => _isLoading;
+  bool get isLoading => _isLoading;
 
   void setIsLoding(bool data) {
     _isLoading = data;

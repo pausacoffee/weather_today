@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:weather_today/utils/text.dart';
 
 import '../../../global/global_skeleton_loader.dart';
-import '../../../provider/view_model/home_view_model.dart';
+import '../model/home_view_model.dart';
 import '../../../routes/app_page.dart';
 import '../widgets/single_weather_widget.dart';
 
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey,
-        body: homeViewModel.isLoding ? _loadingView() : _body(),
+        body: homeViewModel.isLoading ? _loadingView() : _body(),
       ),
     );
   }
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 }).toList(),
                 onChanged: (String? item) {
                   if (item! == '+') {
-                    context.pushNamed(APP_PAGE.geo.toName);
+                    context.pushNamed(APP_PAGE.address.toName);
                     return;
                   }
                   setState(() {
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                context.pushNamed(APP_PAGE.geo.toName);
+                context.pushNamed(APP_PAGE.address.toName);
               },
             ),
           ],

@@ -18,15 +18,15 @@ class APPINPUTDECORATION {
         filled: true,
         fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0xffDCD7C9),
+          borderSide: BorderSide(
+            color: ColorPath.textDisableColor1,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(8.r),
         ),
         border: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0xffDCD7C9),
+          borderSide: BorderSide(
+            color: ColorPath.textDisableColor1,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(8.r),
