@@ -18,14 +18,14 @@ class WeatherApi {
   factory WeatherApi() => _singleton;
   WeatherApi._();
 
-  // Variable ▼ ==========================================
+  // // Variable ▼ ==========================================
 
-  late CurrentModel currentData;
-  late LocationModel locationData;
+  // late CurrentModel currentData;
+  // late LocationModel locationData;
 
   // Function ▼ ==========================================
   /// Fetch Weather Api Data (type : current)
-  Future<void> handleFetchCurrent() async {
+  Future<BaseResponseModel?> handleFetchCurrent() async {
     try {
       String error_msg = '';
 
@@ -39,14 +39,15 @@ class WeatherApi {
           if (kDebugMode) {
             Logger().d(response.toString());
           }
-          //TODO: Success to get response
 
-          if (response.body['current'] != null) {
-            currentData = CurrentModel.fromJson(response.body['current']);
-          }
-          if (response.body['location'] != null) {
-            locationData = LocationModel.fromJson(response.body['location']);
-          }
+          return response;
+
+          // if (response.body['current'] != null) {
+          //   currentData = CurrentModel.fromJson(response.body['current']);
+          // }
+          // if (response.body['location'] != null) {
+          //   locationData = LocationModel.fromJson(response.body['location']);
+          // }
 
           break;
         case 400:
@@ -66,6 +67,6 @@ class WeatherApi {
       GlobalToastWidget(message: e.toString().substring(11));
       Logger().d(e.toString());
     }
-    return;
+    return null;
   }
 }

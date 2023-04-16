@@ -46,18 +46,20 @@ class _SplashPageState extends State<SplashPage> {
     );
 
     title = title
-        .animate(onPlay: (controller) => controller.repeat(reverse: true))
-        .saturate(duration: 1.seconds)
+        .animate() //onPlay: (controller) => controller.repeat(reverse: true)
+        .fadeIn(curve: Curves.easeIn, duration: 2.seconds)
+        .saturate(duration: 2.seconds)
         .then() // set baseline time to previous effect's end time
-        .tint(color: Colors.black)
-        .then()
-        .fadeOut(curve: Curves.easeOut);
+        .tint(color: Colors.black);
+
+    // .then()
+    // .fadeOut(curve: Curves.easeOut);
 
     return WillPopScope(
       onWillPop: () => handlePrevBack(context),
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.amber[300],
+          backgroundColor: Colors.amber,
           body: Center(
             child: Column(
               children: [
@@ -73,9 +75,6 @@ class _SplashPageState extends State<SplashPage> {
                     ],
                     child: Lottie.asset('assets/splash-image.json',
                         fit: BoxFit.contain), //@syeda_maimoona
-                    // child: Lottie.network(
-                    //     'https://assets10.lottiefiles.com/packages/lf20_3xfpxnp9.json',
-                    //     fit: BoxFit.contain),
                   ),
                 ),
                 Expanded(child: title),

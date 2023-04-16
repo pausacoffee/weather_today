@@ -5,6 +5,7 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
+///describing weather. For example clear, sunny, etc.
 ConditionModel conditionModelFromJson(String str) =>
     ConditionModel.fromJson(json.decode(str));
 

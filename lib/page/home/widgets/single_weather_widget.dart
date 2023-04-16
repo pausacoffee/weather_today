@@ -1,44 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_today/models/weather_location.dart';
+
+import '../../../provider/view_model/home_view_model.dart';
 
 class SingleWeatherWidget extends StatelessWidget {
-  const SingleWeatherWidget({super.key, required this.index});
+  const SingleWeatherWidget({super.key, required this.data});
 
-  final int index;
+  final HomeViewModel data;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _backgroundImg(),
-        Container(
-          decoration: const BoxDecoration(color: Colors.black38),
-        ),
-        //_dotIndicator(),
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 80.h,
-              ),
-              _locationWithDate(),
-              const Spacer(),
-              _temperatureWithDay(),
-              const Divider(
-                height: 30,
-                color: Colors.white,
-              ),
-              _bottomInfo(),
-            ],
+    return Container(
+      height: 420.h,
+      width: 320.w,
+      clipBehavior: Clip.hardEdge,
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.r),
+        color: Colors.black12,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1.r,
+            blurRadius: 1,
+            offset: const Offset(0, 0), // changes position of shadow
           ),
-        ),
-      ],
+        ],
+      ),
+      child: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(color: Colors.black38),
+          ),
+          Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 80.h,
+                ),
+                _locationWithDate(),
+                const Spacer(),
+                _temperatureWithDay(),
+                Divider(
+                  height: 30.h,
+                  color: Colors.white,
+                ),
+                _bottomInfo(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -47,7 +62,7 @@ class SingleWeatherWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          locationList[index].city,
+          data.locationData!.name,
           style: GoogleFonts.lato(
             fontSize: 35.sp,
             fontWeight: FontWeight.bold,
@@ -58,7 +73,7 @@ class SingleWeatherWidget extends StatelessWidget {
           height: 5.h,
         ),
         Text(
-          locationList[index].dateTime,
+          data.locationData!.localtime,
           style: GoogleFonts.lato(
             fontSize: 15.sp,
             fontWeight: FontWeight.bold,
@@ -74,7 +89,7 @@ class SingleWeatherWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          locationList[index].temparature,
+          '${data.currentData!.tempC}\u2103', //TODO: c <-> f
           style: GoogleFonts.lato(
             fontSize: 85.sp,
             fontWeight: FontWeight.w300,
@@ -92,7 +107,7 @@ class SingleWeatherWidget extends StatelessWidget {
               width: 10.w,
             ),
             Text(
-              locationList[index].weatherType,
+              data.currentData!.condition.text,
               style: GoogleFonts.lato(
                 fontSize: 15.sp,
                 color: Colors.white,
@@ -111,21 +126,19 @@ class SingleWeatherWidget extends StatelessWidget {
         _bottomInfoItem(
             type: 'Wind',
             unit: 'km/h',
-            value: locationList[index].wind.toString()),
+            value: '${data.currentData!.windKph}'), //TODO: KmH <-> Mph
         SizedBox(
           width: 10.w,
         ),
         _bottomInfoItem(
             type: 'Rain',
-            unit: '%',
-            value: locationList[index].rain.toString()),
+            unit: 'mm',
+            value: '${data.currentData!.precipMm}'), //TODO: mm <-> inch
         SizedBox(
           width: 10.w,
         ),
         _bottomInfoItem(
-            type: 'Humidy',
-            unit: '%',
-            value: locationList[index].humidity.toString()),
+            type: 'Humidy', unit: '%', value: '${data.currentData!.humidity}'),
       ],
     );
   }
@@ -157,16 +170,6 @@ class SingleWeatherWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _backgroundImg() {
-    return Image.asset(
-      locationList[index].bgImg,
-      fit: BoxFit.cover,
-      height: double.infinity,
-      width: double.infinity,
-      gaplessPlayback: true,
     );
   }
 }

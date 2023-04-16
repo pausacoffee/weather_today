@@ -54,7 +54,7 @@ class CurrentModel {
   /// [1 = Yes 0 = No] Whether to show day condition icon or night icon
   int isDay;
 
-  ///
+  /// describing weather. For example clear, sunny, etc.
   ConditionModel condition;
 
   /// Wind speed in miles per hour

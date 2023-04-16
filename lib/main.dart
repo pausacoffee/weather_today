@@ -23,6 +23,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_today/routes/app_service.dart';
 
+import 'provider/config/app_provider_config.dart';
 import 'routes/app_router.dart';
 import 'utils/color.dart';
 import 'utils/scroll_behavior.dart';
@@ -60,11 +61,7 @@ class _MyAppState extends State<MyApp> {
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
         return MultiProvider(
-          providers: [
-            ChangeNotifierProvider<AppService>(create: (_) => appService),
-            Provider<AppRouter>(create: (_) => AppRouter(appService)),
-            //Provider<PermissionService>(create: (_) => PermissionService()),
-          ],
+          providers: AppProviderConfig.providers(),
           child: Builder(builder: (context) {
             final GoRouter goRouter =
                 Provider.of<AppRouter>(context, listen: false).router;
