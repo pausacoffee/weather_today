@@ -22,21 +22,21 @@ class APPINPUTDECORATION {
             color: Color(0xffDCD7C9),
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xffDCD7C9),
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: ColorPath.textDisableColor3,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         hintText: hintText,
         hintStyle: TextStylePath.small14w400

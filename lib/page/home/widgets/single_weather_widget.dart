@@ -15,9 +15,9 @@ class SingleWeatherWidget extends StatelessWidget {
       height: 420.h,
       width: 320.w,
       clipBehavior: Clip.hardEdge,
-      margin: const EdgeInsets.all(20),
+      margin: EdgeInsets.only(top: 5.h, bottom: 5.h, right: 20.w, left: 20.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.r),
+        borderRadius: BorderRadius.circular(25.r),
         color: Colors.black12,
         boxShadow: [
           BoxShadow(

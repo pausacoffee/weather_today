@@ -33,8 +33,8 @@ class GlobalPermissionDialog extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5),
+                  borderRadius: BorderRadius.circular(
+                    8.r,
                   ),
                 ),
                 child: Column(

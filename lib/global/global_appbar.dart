@@ -74,6 +74,7 @@ class GlobalSliverAppBar extends StatelessWidget {
   final Widget? flexibleSpace;
   final bool isWhiteTheme;
   final List<Widget>? actions;
+  final Widget? leading;
   final Function? onBack;
   final SystemUiOverlayStyle? systemOverlayStyle;
   final bool centerTitle;
@@ -93,6 +94,7 @@ class GlobalSliverAppBar extends StatelessWidget {
     this.onBack,
     this.floating = false,
     this.snap = false,
+    this.leading,
   });
 
   @override
@@ -118,7 +120,7 @@ class GlobalSliverAppBar extends StatelessWidget {
                 color: isWhiteTheme ? Colors.white : Colors.black,
                 size: 32.sp,
               ))
-          : null,
+          : leading,
       actions: actions,
       pinned: true,
       centerTitle: centerTitle,

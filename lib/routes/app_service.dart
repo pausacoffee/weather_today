@@ -52,9 +52,6 @@ class AppService with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _permissionState = prefs.getBool('initialize_permission') ?? false;
 
-    // fetch current data
-    WeatherApi().handleFetchCurrent();
-
     // Http 초기화 (디버그 모드일 경우)
     // if (kDebugMode) {
     //   HttpOverrides.global = MyHttpOverrides();

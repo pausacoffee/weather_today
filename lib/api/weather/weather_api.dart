@@ -18,21 +18,14 @@ class WeatherApi {
   factory WeatherApi() => _singleton;
   WeatherApi._();
 
-  // // Variable ▼ ==========================================
-
-  // late CurrentModel currentData;
-  // late LocationModel locationData;
-
   // Function ▼ ==========================================
   /// Fetch Weather Api Data (type : current)
-  Future<BaseResponseModel?> handleFetchCurrent() async {
+  Future<BaseResponseModel?> handleFetchCurrent(String location) async {
     try {
-      String error_msg = '';
-
       BaseResponseModel response = await BaseHttp.dio(
           method: 'GET',
           url:
-              '/current.json?key=${dotenv.env['APP_API_KEY']!}&q=London&aqi=no');
+              '/current.json?key=${dotenv.env['APP_API_KEY']!}&q=$location&aqi=no');
 
       switch (response.statusCode) {
         case 200:
@@ -41,13 +34,6 @@ class WeatherApi {
           }
 
           return response;
-
-          // if (response.body['current'] != null) {
-          //   currentData = CurrentModel.fromJson(response.body['current']);
-          // }
-          // if (response.body['location'] != null) {
-          //   locationData = LocationModel.fromJson(response.body['location']);
-          // }
 
           break;
         case 400:
