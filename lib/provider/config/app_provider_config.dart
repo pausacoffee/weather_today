@@ -3,8 +3,8 @@ import 'package:provider/single_child_widget.dart';
 
 import '../../routes/app_router.dart';
 import '../../routes/app_service.dart';
-import '../../page/address/model/address_view_model.dart';
-import '../../page/home/model/home_view_model.dart';
+import '../../modules/address/model/address_view_model.dart';
+import '../../modules/home/model/home_view_model.dart';
 
 class AppProviderConfig {
   AppProviderConfig._();

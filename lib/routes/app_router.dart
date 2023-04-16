@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../page/address/view/address_page.dart';
-import '../page/home/view/home_page.dart';
-import '../page/permission/view/permission_page.dart';
-import '../page/splash/splash_page.dart';
-import '../page/error/view/error_page.dart';
+import '../modules/address/view/address_page.dart';
+import '../modules/home/view/home_page.dart';
+import '../modules/permission/view/permission_page.dart';
+import '../modules/splash/splash_page.dart';
+import '../modules/error/view/error_page.dart';
 import 'app_service.dart';
 import 'app_page.dart';
 
