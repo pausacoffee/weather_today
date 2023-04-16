@@ -73,7 +73,7 @@ class _SplashPageState extends State<SplashPage> {
                         end: 1.0,
                       )
                     ],
-                    child: Lottie.asset('assets/splash-image.json',
+                    child: Lottie.asset('assets/images/splash-image.json',
                         fit: BoxFit.contain), //@syeda_maimoona
                   ),
                 ),

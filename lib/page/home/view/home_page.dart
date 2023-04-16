@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        //extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: true,
         appBar: _appBar(),
         body: homeViewModel.isLoding ? _loadingView() : _body(),
       ),
@@ -55,6 +55,9 @@ class _HomePageState extends State<HomePage> {
               onRefresh: () async =>
                   await Future.delayed(const Duration(seconds: 1))),
         SliverToBoxAdapter(
+          child: Text(homeViewModel.locationData.country), //TODO: 위치 바꾸기 기능 구현
+        ),
+        SliverToBoxAdapter(
           child: SingleWeatherWidget(
             data: homeViewModel,
           ),
@@ -66,12 +69,6 @@ class _HomePageState extends State<HomePage> {
   /// appbar
   AppBar _appBar() {
     return AppBar(
-      // title: Center(
-      //   child: Text(
-      //     homeViewModel.locationData.country,
-      //     style: TextStylePath.title20w800,
-      //   ),
-      // ),
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
@@ -101,24 +98,6 @@ class _HomePageState extends State<HomePage> {
   Widget _loadingView() {
     //TODO: shimmer
     return const Center(child: Text('로딩 중'));
-  }
-
-//TODO::SmoothPageIndicator
-  Widget _dotIndicator() {
-    return Container(
-      margin: const EdgeInsets.only(top: 90, left: 15),
-      child: Row(
-        children: [
-          Container(
-            width: 10.w,
-            height: 5.h,
-            decoration: BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.all(Radius.circular(5.r))),
-          )
-        ],
-      ),
-    );
   }
 
   // Override ▼ ========================================
