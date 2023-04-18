@@ -10,6 +10,7 @@ import 'package:weather_today/utils/text.dart';
 import '../../../global/global_skeleton_loader.dart';
 import '../model/home_view_model.dart';
 import '../../../routes/app_page.dart';
+import '../widgets/side_menu.dart';
 import '../widgets/single_weather_widget.dart';
 import '../widgets/uv_widget.dart';
 
@@ -22,13 +23,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late HomeViewModel homeViewModel;
+
   @override
   Widget build(BuildContext context) {
     homeViewModel = Provider.of<HomeViewModel>(context);
 
     return SafeArea(
       child: Scaffold(
-        //backgroundColor: Colors.grey,
+        drawer: homeViewModel.isLoading ? null : const SideMenu(),
         body: homeViewModel.isLoading ? _loadingView() : _body(),
       ),
     );
@@ -85,14 +87,18 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 30.sp,
-              ),
-              onPressed: () {}, //TODO:메뉴 - drawer
-            ),
+            Builder(builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                  size: 30.sp,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                }, //TODO:메뉴 - drawer
+              );
+            }),
             const Spacer(),
             Container(
               decoration: BoxDecoration(
