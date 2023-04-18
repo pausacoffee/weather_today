@@ -1,5 +1,6 @@
 enum APP_PAGE { splash, home, error, address, permission }
 
+/// router 할 page의 path, name, title 을 정의함.
 extension AppPageExtension on APP_PAGE {
   String get toPath {
     switch (this) {

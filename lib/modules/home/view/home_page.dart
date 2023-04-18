@@ -11,6 +11,7 @@ import '../../../global/global_skeleton_loader.dart';
 import '../model/home_view_model.dart';
 import '../../../routes/app_page.dart';
 import '../widgets/single_weather_widget.dart';
+import '../widgets/uv_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey,
+        //backgroundColor: Colors.grey,
         body: homeViewModel.isLoading ? _loadingView() : _body(),
       ),
     );
@@ -45,22 +46,36 @@ class _HomePageState extends State<HomePage> {
 
   /// 날씨 데이터에 의해 갱신되는 widget
   Widget _contents() {
-    return CustomScrollView(
-      slivers: [
-        if (Platform.isIOS)
-          CupertinoSliverRefreshControl(
-              onRefresh: () async =>
-                  await Future.delayed(const Duration(seconds: 1))),
-        _appBar(),
-        SliverToBoxAdapter(
-          child: SingleWeatherWidget(
-            data: homeViewModel,
+    return Stack(children: [
+      _backgroundImg(),
+      CustomScrollView(
+        slivers: [
+          if (Platform.isIOS)
+            CupertinoSliverRefreshControl(
+                onRefresh: () async => await homeViewModel.fetchViewModel()),
+          _appBar(),
+          SliverToBoxAdapter(
+            child: SingleWeatherWidget(
+              data: homeViewModel,
+            ),
           ),
-        ),
-      ],
+          SliverToBoxAdapter(
+            child: UvWidget(
+              data: homeViewModel,
+            ),
+          )
+        ],
+      ),
+    ]);
+  }
+
+  Widget _backgroundImg() {
+    return Container(
+      color: Colors.amber,
     );
   }
 
+  //appbar
   Widget _appBar() {
     return SliverToBoxAdapter(
       child: Container(
@@ -105,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                     return;
                   }
                   setState(() {
-                    homeViewModel.userLocation = item!;
+                    homeViewModel.userLocation = item;
                   });
                 },
                 iconSize: 24.sp,
@@ -120,7 +135,9 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                context.pushNamed(APP_PAGE.address.toName);
+                context
+                    .pushNamed(APP_PAGE.address.toName)
+                    .then((value) => homeViewModel.fetchViewModel());
               },
             ),
           ],

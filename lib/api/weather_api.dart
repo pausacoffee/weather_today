@@ -16,6 +16,7 @@ class WeatherApi {
 
   // Function ▼ ==========================================
   /// Fetch Weather Api Data (type : current)
+  /// q (in url) : Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name.
   Future<BaseResponseModel?> handleFetchCurrent(String location) async {
     try {
       BaseResponseModel response = await BaseHttp.dio(

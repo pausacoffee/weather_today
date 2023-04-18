@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/weather_api.dart';
+import 'condition_service.dart';
 
+///앱 시작에 앞서 상태(로그인 여부, 퍼미션, 앱 데이터 로드)를 체크하고 redirect 를 위한 notify를 수행
 class AppService with ChangeNotifier {
   // Singleton ▼ ========================================
   static final AppService _singleton = AppService._internal();
@@ -51,6 +53,9 @@ class AppService with ChangeNotifier {
     // 최초 permission 체크 한번
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _permissionState = prefs.getBool('initialize_permission') ?? false;
+
+    /// assets 에서 data load
+    ConditionService().init();
 
     // Http 초기화 (디버그 모드일 경우)
     // if (kDebugMode) {

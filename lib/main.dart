@@ -22,7 +22,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_today/routes/app_service.dart';
+import 'package:weather_today/service/app_service.dart';
 
 import 'provider/config/app_provider_config.dart';
 import 'routes/app_router.dart';

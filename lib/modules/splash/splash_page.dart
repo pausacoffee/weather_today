@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../routes/app_service.dart';
+import '../../service/app_service.dart';
 import '../../utils/text.dart';
 
 class SplashPage extends StatefulWidget {

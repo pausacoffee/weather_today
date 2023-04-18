@@ -6,9 +6,10 @@ import '../modules/home/view/home_page.dart';
 import '../modules/permission/view/permission_page.dart';
 import '../modules/splash/splash_page.dart';
 import '../modules/error/view/error_page.dart';
-import 'app_service.dart';
+import '../service/app_service.dart';
 import 'app_page.dart';
 
+/// goRouter 을 사용하여 navigation 과 조건에 따라 redirect를 수행
 class AppRouter {
   GoRouter get router => _goRouter;
 

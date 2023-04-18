@@ -12,6 +12,7 @@ class AddressPage extends StatelessWidget {
     return SafeArea(
       child: GestureDetector(
         onTap: () {
+          //keyboard 내리기
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: Scaffold(
@@ -29,10 +30,11 @@ Widget _body() {
   return const AddressSearchWidget();
 }
 
+///appbar
 AppBar _appBar() {
   return AppBar(
     backgroundColor: Colors.transparent,
-    title: const Text('즐겨찾기'),
+    title: const Text('관심 지역'),
     centerTitle: true,
     actions: [
       IconButton(
