@@ -1,16 +1,15 @@
 # weather_today
 
-A new Flutter project.
+오늘의 날씨
+1. 프로젝트 개요
+'https://www.weatherapi.com/' 에서 제공하는 날씨 API를 사용하여 오늘의 날씨를 확인하게 도와주는 모바일 서비스 이다.
 
-## Getting Started
+2. 주요기능
+- 사용자는 관심지역을 설정할 수 있다.
+- 관심지역의 날씨를 알 수 있다.
+- 날씨 정보에는 다음을 포함한다.
+  > 기온, 체감온도, 바람, 강수확률, 자외선 지수 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. 앱 구성
+- Mutiprovider, goRouter로 route 와 상태관리를 한다.
+- dio 로 http 통신을 한다.
