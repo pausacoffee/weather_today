@@ -38,7 +38,7 @@ class HomeViewModel extends ChangeNotifier {
 
   // Fucntion ▼ ==========================================
 
-  /// load data : user location list, current weather...
+  /// Home 화면에 보여줄 데이터를 load 한다.
   Future<void> initialize() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -66,7 +66,7 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  ///fetch current weather data
+  ///fetch weather data
   Future<void> fetchCurrentData() async {
     try {
       BaseResponseModel? response =
