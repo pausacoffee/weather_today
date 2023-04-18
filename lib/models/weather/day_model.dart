@@ -63,13 +63,13 @@ class DayModel {
   double totalsnowCm;
 
   ///Average visibility in kilometer
-  int avgvisKm;
+  double avgvisKm;
 
   ///Average visibility in miles
-  int avgvisMiles;
+  double avgvisMiles;
 
   ///Average humidity as percentage
-  int avghumidity;
+  double avghumidity;
 
   ///
   double dailyWillItRain;
@@ -118,9 +118,13 @@ class DayModel {
         totalsnowCm: json["totalsnow_cm"] != null
             ? json["totalsnow_cm"].toDouble()
             : 0.0,
-        avgvisKm: json["avgvis_km"] ?? 0,
-        avgvisMiles: json["avgvis_miles"] ?? 0,
-        avghumidity: json["avghumidity"] ?? 0,
+        avgvisKm:
+            json["avgvis_km"] != null ? json["avgvis_km"].toDouble() : 0.0,
+        avgvisMiles: json["avgvis_miles"] != null
+            ? json["avgvis_miles"].toDouble()
+            : 0.0,
+        avghumidity:
+            json["avghumidity"] != null ? json["avghumidity"].toDouble() : 0.0,
         dailyWillItRain: json["daily_will_it_rain"] != null
             ? json["daily_will_it_rain"].toDouble()
             : 0.0,

@@ -5,8 +5,8 @@ import 'dart:convert';
 
 import 'day_model.dart';
 
-class Forecastday {
-  Forecastday({
+class ForecastdayModel {
+  ForecastdayModel({
     required this.date,
     required this.dateEpoch,
     required this.day,
@@ -20,7 +20,8 @@ class Forecastday {
   AstroModel astro;
   List<HourModel> hour;
 
-  factory Forecastday.fromJson(Map<String, dynamic> json) => Forecastday(
+  factory ForecastdayModel.fromJson(Map<String, dynamic> json) =>
+      ForecastdayModel(
         date: json["date"] ?? '',
         dateEpoch: json["date_epoch"],
         day: DayModel.fromJson(json["day"]),

@@ -52,7 +52,7 @@ class AstroModel {
         moonset: json["moonset"] ?? '',
         moonPhase: json["moon_phase"] ?? '',
         moonIllumination: json["moon_illumination"] != null
-            ? json["moon_illumination"].toDouble()
+            ? double.parse(json["moon_illumination"])
             : 0.0,
         isMoonUp: json["is_moon_up"] ?? 0,
         isSunUp: json["is_sun_up"] ?? 0,

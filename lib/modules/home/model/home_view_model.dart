@@ -5,6 +5,7 @@ import 'package:weather_today/api/weather_api.dart';
 
 import '../../../api/base/base_response_model.dart';
 import '../../../models/weather/current_model.dart';
+import '../../../models/weather/forecast_day_model.dart';
 import '../../../models/weather/location_model.dart';
 
 ///HomePage에서 필요한 데이터들은 불러오고, notify 함.
@@ -25,6 +26,9 @@ class HomeViewModel extends ChangeNotifier {
 
   /// Current Weather's Location Data
   late LocationModel locationData;
+
+  /// forecastday Weather's Location Data
+  List<ForecastdayModel> forcastList = [];
 
   // Getter/Settter ▼ ==========================================
   /// 데이터 로딩
@@ -47,7 +51,7 @@ class HomeViewModel extends ChangeNotifier {
 
       userLocation = userLocationList[0];
 
-      await fetchCurrentData();
+      await fetchViewModel();
 
       setIsLoding(false);
     } catch (e) {
@@ -58,7 +62,7 @@ class HomeViewModel extends ChangeNotifier {
   ///fetch multiple data for home view
   Future<void> fetchViewModel() async {
     try {
-      await fetchCurrentData();
+      await fetchForcasttData();
 
       setIsLoding(false);
     } catch (e) {
@@ -66,7 +70,7 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  ///fetch weather data
+  ///fetch current weather data
   Future<void> fetchCurrentData() async {
     try {
       BaseResponseModel? response =
@@ -79,6 +83,36 @@ class HomeViewModel extends ChangeNotifier {
       }
       if (response.body['location'] != null) {
         locationData = LocationModel.fromJson(response.body['location']);
+      }
+    } catch (e) {
+      Logger().d(e);
+    }
+  }
+
+  ///fetch forecast weather data
+  ///current data를 포함한다! current대신 사용할 것!
+  Future<void> fetchForcasttData() async {
+    try {
+      BaseResponseModel? response =
+          await WeatherApi().handleFetchForcast(userLocation);
+
+      if (response == null) return;
+
+      if (response.body['current'] != null) {
+        currentData = CurrentModel.fromJson(response.body['current']);
+      }
+      if (response.body['location'] != null) {
+        locationData = LocationModel.fromJson(response.body['location']);
+      }
+      if (response.body['forecast'] != null) {
+        Map<String, dynamic> forecast = response.body['forecast'];
+
+        if (forecast['forecastday'] != null) {
+          forcastList.clear();
+          forcastList.addAll(List<ForecastdayModel>.from(
+              (forecast['forecastday']
+                  .map((e) => ForecastdayModel.fromJson(e)))));
+        }
       }
     } catch (e) {
       Logger().d(e);

@@ -66,18 +66,15 @@ class SingleWeatherWidget extends StatelessWidget {
           Text(
             data.locationData.name,
             style: GoogleFonts.lato(
-              fontSize: 15.sp,
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
-          SizedBox(
-            height: 5.h,
-          ),
           Text(
             data.locationData.localtime,
             style: GoogleFonts.lato(
-              fontSize: 5.sp,
+              fontSize: 8.sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
