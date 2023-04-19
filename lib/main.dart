@@ -23,6 +23,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_today/service/app_service.dart';
 
@@ -96,7 +97,7 @@ class _MyAppState extends State<MyApp> {
                     statusBarColor: Colors.white.withOpacity(0.0),
                   ),
                 ),
-                fontFamily: "Pretendard",
+                fontFamily: GoogleFonts.openSans().fontFamily,
                 scaffoldBackgroundColor: ColorPath.bgColor,
               ),
               debugShowCheckedModeBanner: false,

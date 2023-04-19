@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../service/condition_service.dart';
 import '../model/home_view_model.dart';
 
-class SingleWeatherWidget extends StatelessWidget {
-  const SingleWeatherWidget({super.key, required this.data});
+class CurrentWeatherWidget extends StatelessWidget {
+  const CurrentWeatherWidget({super.key, required this.data});
 
   final HomeViewModel data;
 
@@ -46,7 +46,7 @@ class SingleWeatherWidget extends StatelessWidget {
               const Spacer(),
               Divider(
                 height: 30.h,
-                color: Colors.white,
+                color: Colors.white60,
               ),
               _bottomInfo(),
             ],
@@ -102,7 +102,9 @@ class SingleWeatherWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          ConditionService().iconPath(data.currentData.condition.code),
+          ConditionService().iconPath(
+              code: data.currentData.condition.code,
+              isDay: data.currentData.isDay),
           //width: 120.w,
         ),
         SizedBox(

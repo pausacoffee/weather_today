@@ -91,6 +91,13 @@ abstract class TextStylePath {
     fontWeight: FontWeight.w600,
     color: ColorPath.textBlack,
   );
+
+  static TextStyle small12w300 = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w300,
+    color: ColorPath.textBlack,
+  );
+
   static TextStyle small12w400 = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
@@ -98,6 +105,23 @@ abstract class TextStylePath {
   );
   static TextStyle small12w600 = TextStyle(
     fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    color: ColorPath.textBlack,
+  );
+
+  static TextStyle small8w300 = TextStyle(
+    fontSize: 8.sp,
+    fontWeight: FontWeight.w300,
+    color: ColorPath.textBlack,
+  );
+
+  static TextStyle small8w400 = TextStyle(
+    fontSize: 8.sp,
+    fontWeight: FontWeight.w400,
+    color: ColorPath.textBlack,
+  );
+  static TextStyle small8w600 = TextStyle(
+    fontSize: 8.sp,
     fontWeight: FontWeight.w600,
     color: ColorPath.textBlack,
   );

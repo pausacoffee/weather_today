@@ -98,9 +98,23 @@ class ConditionService {
     return result;
   }
 
-  /// icon code //TODO: Icon으로 return 하기
-  String iconPath(int code) {
-    String result = 'assets/day/113.png';
+  /// icon code
+  /// isDay : 1 = Yes, 0 = No
+  String iconPath({required int code, required int isDay}) {
+    String dayPath;
+    switch (isDay) {
+      case 0:
+        dayPath = 'day';
+        break;
+      case 1:
+        dayPath = 'night';
+        break;
+      default:
+        dayPath = 'day';
+        break;
+    }
+
+    String result = 'assets/$dayPath/113.png';
 
     if (codeList.isEmpty) return result;
 
@@ -113,7 +127,7 @@ class ConditionService {
 
       if (condition.icon == -1) return result;
 
-      result = 'assets/day/${condition.icon}.png';
+      result = 'assets/$dayPath/${condition.icon}.png';
     } catch (e) {
       Logger().d(e.toString());
     }

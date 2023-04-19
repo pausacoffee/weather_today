@@ -35,8 +35,9 @@ class SideMenu extends StatelessWidget {
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
                   child: Image.asset(
-                    ConditionService()
-                        .iconPath(data.currentData.condition.code),
+                    ConditionService().iconPath(
+                        code: data.currentData.condition.code,
+                        isDay: data.currentData.isDay),
                     width: 60.w,
                   ),
                 ),

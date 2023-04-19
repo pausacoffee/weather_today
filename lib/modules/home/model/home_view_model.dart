@@ -6,6 +6,7 @@ import 'package:weather_today/api/weather_api.dart';
 import '../../../api/base/base_response_model.dart';
 import '../../../models/weather/current_model.dart';
 import '../../../models/weather/forecast_day_model.dart';
+import '../../../models/weather/hour_model.dart';
 import '../../../models/weather/location_model.dart';
 
 ///HomePage에서 필요한 데이터들은 불러오고, notify 함.
@@ -29,6 +30,8 @@ class HomeViewModel extends ChangeNotifier {
 
   /// forecastday Weather's Location Data
   List<ForecastdayModel> forcastList = [];
+
+  //List<HourModel> hoursList = [];
 
   // Getter/Settter ▼ ==========================================
   /// 데이터 로딩
@@ -59,7 +62,7 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  ///fetch multiple data for home view
+  ///fetch multiple data for home page
   Future<void> fetchViewModel() async {
     try {
       await fetchForcasttData();
@@ -89,8 +92,8 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  ///fetch forecast weather data
-  ///current data를 포함한다! current대신 사용할 것!
+  ///fetch forecast
+  ///: current data를 포함한다! current대신 사용할 것!
   Future<void> fetchForcasttData() async {
     try {
       BaseResponseModel? response =
@@ -112,6 +115,9 @@ class HomeViewModel extends ChangeNotifier {
           forcastList.addAll(List<ForecastdayModel>.from(
               (forecast['forecastday']
                   .map((e) => ForecastdayModel.fromJson(e)))));
+
+          // hoursList.clear();
+          // hoursList = forcastList.expand((element) => element.hour).toList();
         }
       }
     } catch (e) {

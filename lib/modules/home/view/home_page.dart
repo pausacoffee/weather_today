@@ -10,8 +10,9 @@ import 'package:weather_today/utils/text.dart';
 import '../../../global/global_skeleton_loader.dart';
 import '../model/home_view_model.dart';
 import '../../../routes/app_page.dart';
+import '../widgets/weather_per_hour_widget.dart';
 import '../widgets/side_menu.dart';
-import '../widgets/single_weather_widget.dart';
+import '../widgets/current_weather_widget.dart';
 import '../widgets/uv_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 onRefresh: () async => await homeViewModel.fetchViewModel()),
           _appBar(),
           SliverToBoxAdapter(
-            child: SingleWeatherWidget(
+            child: CurrentWeatherWidget(
               data: homeViewModel,
             ),
           ),
@@ -65,12 +66,21 @@ class _HomePageState extends State<HomePage> {
             child: UvWidget(
               data: homeViewModel,
             ),
-          )
+          ),
+          SliverToBoxAdapter(
+            child: WeatherPerHourWidget(
+              data: homeViewModel,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: _copyRight(),
+          ),
         ],
       ),
     ]);
   }
 
+  ///Home Page의 배경화면
   Widget _backgroundImg() {
     return Container(
       color: Colors.amber,
@@ -195,6 +205,40 @@ class _HomePageState extends State<HomePage> {
             height: 420.h,
             width: 320.w,
             radius: 25.r,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _copyRight() {
+    return Container(
+      padding: EdgeInsets.only(
+        top: 10.h,
+        bottom: 10.h,
+        right: 60.w,
+        left: 60.w,
+      ),
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '오늘의 날씨',
+            style: TextStylePath.base16w600.copyWith(color: Colors.white70),
+            softWrap: true,
+          ),
+          Text(
+            '데이터 권한 : Copyright © Weather API',
+            style: TextStylePath.small12w300.copyWith(color: Colors.white54),
+            softWrap: true,
+          ),
+          Text(
+            '이 자료는 인증받지 않은 자료로 표출방식에 따라 차이가 있을 수 있습니다.',
+            style: TextStylePath.small12w300.copyWith(color: Colors.white54),
+            textAlign: TextAlign.center,
+            softWrap: true,
           ),
         ],
       ),
