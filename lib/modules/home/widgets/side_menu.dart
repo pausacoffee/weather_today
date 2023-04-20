@@ -1,14 +1,9 @@
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../config/app_config.dart';
 import '../../../global/global_toggle_switch.dart';
-import '../../../routes/app_router.dart';
 import '../../../service/condition_service.dart';
 import '../../../utils/text.dart';
 import '../model/home_view_model.dart';
@@ -22,40 +17,46 @@ class SideMenu extends StatelessWidget {
     return Consumer<HomeViewModel>(
       builder: (_, data, __) {
         return data.isLoading
-            ? Drawer()
+            ? const Drawer()
             : Drawer(
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
-                    DrawerHeader(
+                    Container(
+                      alignment: Alignment.center,
                       decoration: const BoxDecoration(
                         color: Colors.amber,
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(8),
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 80.w,
-                            height: 80.w,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.white),
-                            child: Image.asset(
-                              ConditionService().iconPath(
-                                  code: data.currentData.condition.code,
-                                  isDay: data.currentData.isDay),
-                              width: 60.w,
+                      child: DrawerHeader(
+                        margin: EdgeInsets.zero,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 80.w,
+                              height: 80.w,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: Image.asset(
+                                ConditionService().iconPath(
+                                    code: data.currentData.condition.code,
+                                    isDay: data.currentData.isDay),
+                                width: 60.w,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Text(
-                            '오늘의 날씨',
-                            style: TextStylePath.title24w800
-                                .copyWith(color: Colors.white),
-                          ),
-                        ],
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              '오늘의 날씨',
+                              style: TextStylePath.title24w800,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     _switchScale(),
@@ -84,7 +85,7 @@ class SideMenu extends StatelessWidget {
         return ListTile(
           leading: Text(
             '기온 단위',
-            style: TextStylePath.base16w600,
+            style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           title: Container(
             padding: EdgeInsets.only(
@@ -100,6 +101,7 @@ class SideMenu extends StatelessWidget {
               onChanged: (value) {
                 data.setScale(value);
               },
+              height: 40.h,
             ),
           ),
         );

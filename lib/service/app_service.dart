@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/app_config.dart';
+import '../modules/home/model/home_view_model.dart';
 import 'condition_service.dart';
 
 class AppService with ChangeNotifier {

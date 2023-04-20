@@ -113,9 +113,7 @@ class WeatherPerHourWidget extends StatelessWidget {
               ),
               Text(
                 formatWeatherTime(data.hourList[index].time),
-                style: TextStylePath.small12w600.copyWith(
-                  color: Colors.white,
-                ),
+                style: TextStylePath.small12w600,
               ),
               SizedBox(
                 height: 10.h,
@@ -150,18 +148,14 @@ class WeatherPerHourWidget extends StatelessWidget {
           children: [
             Text(
               '${data.hourList[index].tempC}', //TODO: c <-> f
-              style: TextStylePath.small12w300.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small12w300,
             ),
             SizedBox(
               width: 2.w,
             ),
             Text(
               data.getTempScale(),
-              style: TextStylePath.small12w300.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small12w300,
             ),
           ],
         );
@@ -187,18 +181,14 @@ class WeatherPerHourWidget extends StatelessWidget {
             ),
             Text(
               '${data.hourList[index].chanceOfRain}',
-              style: TextStylePath.small12w300.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small12w300,
             ),
             SizedBox(
               width: 2.w,
             ),
             Text(
               '%',
-              style: TextStylePath.small12w300.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small12w300,
             ),
           ],
         );
@@ -234,9 +224,7 @@ class WeatherPerHourWidget extends StatelessWidget {
               ),
               Text(
                 formatWeatherTime(data.hourList[index].time),
-                style: TextStylePath.small12w600.copyWith(
-                  color: Colors.white,
-                ),
+                style: TextStylePath.small12w600,
               ),
               SizedBox(
                 height: 10.h,
@@ -251,9 +239,7 @@ class WeatherPerHourWidget extends StatelessWidget {
               Text(
                 convertWindDirection(
                     data.hourList[index].windDir), //TODO: c <-> f
-                style: TextStylePath.small12w300.copyWith(
-                  color: Colors.white,
-                ),
+                style: TextStylePath.small12w300,
               ),
               SizedBox(
                 height: 8.w,
@@ -276,18 +262,14 @@ class WeatherPerHourWidget extends StatelessWidget {
           children: [
             Text(
               '${data.hourList[index].windKph}', //TODO: kph <-> mph
-              style: TextStylePath.small12w300.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small12w300,
             ),
             SizedBox(
               width: 2.w,
             ),
             Text(
               'km/h', //TODO: c <-> f
-              style: TextStylePath.small8w300.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small8w300,
             ),
           ],
         );
@@ -322,9 +304,7 @@ class WeatherPerHourWidget extends StatelessWidget {
               ),
               Text(
                 formatWeatherTime(data.hourList[index].time),
-                style: TextStylePath.small12w600.copyWith(
-                  color: Colors.white,
-                ),
+                style: TextStylePath.small12w600,
               ),
               SizedBox(
                 height: 10.h,
@@ -358,14 +338,14 @@ class WeatherPerHourWidget extends StatelessWidget {
         children: [
           Text(
             '${data.hourList[index].humidity}',
-            style: TextStylePath.small12w300.copyWith(color: Colors.white),
+            style: TextStylePath.small12w300,
           ),
           SizedBox(
             width: 2.w,
           ),
           Text(
             '%',
-            style: TextStylePath.small12w300.copyWith(color: Colors.white),
+            style: TextStylePath.small12w300,
           ),
         ],
       );
@@ -377,19 +357,19 @@ class WeatherPerHourWidget extends StatelessWidget {
     Tab(
       child: Text(
         '날씨',
-        style: TextStylePath.small14w600.copyWith(color: Colors.white),
+        style: TextStylePath.small14w600,
       ),
     ),
     Tab(
       child: Text(
         '바람',
-        style: TextStylePath.small14w600.copyWith(color: Colors.white),
+        style: TextStylePath.small14w600,
       ),
     ),
     Tab(
       child: Text(
         '습도',
-        style: TextStylePath.small14w600.copyWith(color: Colors.white),
+        style: TextStylePath.small14w600,
       ),
     ),
   ];

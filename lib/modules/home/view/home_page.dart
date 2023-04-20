@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -35,52 +36,44 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         drawer: const SideMenu(),
-        body: homeViewModel.isLoading ? _loadingView() : _body(),
+        body: _body(),
       ),
     );
   }
 
-  /// body
+  /// body : loading 중이면 loadingView, load 완료면 contents
   Widget _body() {
-    return !Platform.isIOS
-        ? RefreshIndicator(
-            onRefresh: () async => await homeViewModel.fetchViewModel(),
-            child: _contents(),
-          )
-        : _contents();
+    return homeViewModel.isLoading
+        ? _loadingView()
+        : !Platform.isIOS
+            ? RefreshIndicator(
+                onRefresh: () async => await homeViewModel.fetchViewModel(),
+                child: _contents(),
+              )
+            : _contents();
   }
 
   /// 날씨 데이터에 의해 갱신되는 widget
   Widget _contents() {
-    return Stack(children: [
-      //_backgroundImg(),
-      CustomScrollView(
-        slivers: [
-          if (Platform.isIOS)
-            CupertinoSliverRefreshControl(
-                onRefresh: () async => await homeViewModel.fetchViewModel()),
-          _appBar(),
-          const SliverToBoxAdapter(
-            child: CurrentWeatherWidget(),
-          ),
-          const SliverToBoxAdapter(
-            child: UvWidget(),
-          ),
-          SliverToBoxAdapter(
-            child: WeatherPerHourWidget(),
-          ),
-          SliverToBoxAdapter(
-            child: _copyright(),
-          ),
-        ],
-      ),
-    ]);
-  }
-
-  ///Home Page의 배경화면 이미지
-  Widget _backgroundImg() {
-    return Container(
-      color: Colors.amber,
+    return CustomScrollView(
+      slivers: [
+        if (Platform.isIOS)
+          CupertinoSliverRefreshControl(
+              onRefresh: () async => await homeViewModel.fetchViewModel()),
+        _appBar(),
+        const SliverToBoxAdapter(
+          child: CurrentWeatherWidget(),
+        ),
+        const SliverToBoxAdapter(
+          child: UvWidget(),
+        ),
+        SliverToBoxAdapter(
+          child: WeatherPerHourWidget(),
+        ),
+        SliverToBoxAdapter(
+          child: _copyright(),
+        ),
+      ],
     );
   }
 
@@ -106,8 +99,7 @@ class _HomePageState extends State<HomePage> {
                   value: item,
                   child: Text(
                     item,
-                    style:
-                        TextStylePath.title18w800.copyWith(color: Colors.white),
+                    style: TextStylePath.title18w800,
                   ),
                 );
               }).toList(),
@@ -171,9 +163,8 @@ class _HomePageState extends State<HomePage> {
 
   //data가 fetch 되기 전 화면
   Widget _loadingView() {
-    return SizedBox(
-      height: double.infinity,
-      width: double.infinity,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Column(
         children: [
           //appbar
@@ -198,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                 const Spacer(),
                 IconButton(
                   icon: Icon(
-                    Icons.search,
+                    Icons.dark_mode_rounded,
                     size: 30.sp,
                     color: Colors.white,
                   ),
@@ -207,11 +198,35 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          SizedBox(
+            height: 10.h,
+          ),
           //current weather card
           GlobalSkeletonLoader(
-            height: 420.h,
+            height: 300.h,
             width: 320.w,
             radius: 25.r,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          //uv card
+          GlobalSkeletonLoader(
+            height: 130.h,
+            width: 320.w,
+            radius: 25.r,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          //WeatherPerHourWidget card
+          GlobalSkeletonLoader(
+            height: 220.h,
+            width: 320.w,
+            radius: 25.r,
+          ),
+          SizedBox(
+            height: 10.h,
           ),
         ],
       ),

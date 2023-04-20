@@ -12,7 +12,7 @@ class GlobalSkeletonLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Color.fromRGBO(240, 240, 240, 1),
+      baseColor: Colors.white54,
       highlightColor: Colors.white,
       child: Container(
         width: width ?? double.infinity,

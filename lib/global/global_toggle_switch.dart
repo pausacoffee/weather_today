@@ -53,15 +53,11 @@ class _GlobalToggleSwitchState extends State<GlobalToggleSwitch> {
       iconBuilder: (value) => value
           ? Text(
               widget.firstString,
-              style: TextStylePath.small14w600.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small14w600,
             )
           : Text(
               widget.secondString,
-              style: TextStylePath.small14w600.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.small14w600,
             ),
     );
   }

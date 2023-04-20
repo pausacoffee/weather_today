@@ -86,9 +86,7 @@ class _AddressSearchWidgetState extends State<AddressSearchWidget> {
       height: 60.h,
       child: Text(
         '$index',
-        style: TextStylePath.base16w400.copyWith(
-          color: Colors.white,
-        ),
+        style: TextStylePath.base16w400,
       ),
     );
   }
@@ -98,7 +96,7 @@ class _AddressSearchWidgetState extends State<AddressSearchWidget> {
     return Center(
       child: Text(
         '로딩 중...',
-        style: TextStylePath.base16w400.copyWith(color: Colors.white),
+        style: TextStylePath.base16w400,
       ),
     );
   }
@@ -161,9 +159,7 @@ class _AddressSearchWidgetState extends State<AddressSearchWidget> {
                       ),
                     ),
                     hintText: '지역 검색',
-                    hintStyle: TextStylePath.small14w400.copyWith(
-                      color: Colors.white,
-                    ),
+                    hintStyle: TextStylePath.small14w400,
                   ),
                 ),
               ),

@@ -69,8 +69,7 @@ class GlobalButton extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     title!,
-                    style: (style ?? TextStylePath.base16w600)
-                        .copyWith(color: Colors.white),
+                    style: (style ?? TextStylePath.base16w600),
                   ),
                 )
               : Container(

@@ -5,7 +5,7 @@ class AppConfig {
   // Singleton ▼ ========================================
   static final AppConfig _singleton = AppConfig._();
 
-  ///앱의 설정 값 : Scale(°F, °C), 언어, 다크모드 etc
+  ///앱의 설정 값 : Scale(°F, °C), 언어 etc
   factory AppConfig() {
     return _singleton;
   }

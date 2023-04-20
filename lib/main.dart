@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
             final GoRouter goRouter =
                 Provider.of<AppRouter>(context, listen: false).router;
             final ThemeService themeNotifier =
-                Provider.of<ThemeService>(context, listen: false);
+                Provider.of<ThemeService>(context, listen: true);
             return MaterialApp.router(
               // route 정보 전달
               routeInformationProvider: goRouter.routeInformationProvider,
@@ -92,16 +92,6 @@ class _MyAppState extends State<MyApp> {
                   child: widget!,
                 );
               },
-              // theme: ThemeData(
-              //   appBarTheme: AppBarTheme(
-              //     backgroundColor: ColorPath.bgColor,
-              //     systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-              //       statusBarColor: Colors.white.withOpacity(0.0),
-              //     ),
-              //   ),
-              //   fontFamily: GoogleFonts.openSans().fontFamily,
-              //   scaffoldBackgroundColor: ColorPath.bgColor,
-              // ),
               theme: lightTheme,
               darkTheme: darkTheme,
               themeMode: themeNotifier.themeMode,

@@ -43,7 +43,7 @@ class UvWidget extends StatelessWidget {
         children: [
           Text(
             '자외선 지수',
-            style: TextStylePath.small14w600.copyWith(color: Colors.white),
+            style: TextStylePath.small14w600,
           ),
           Divider(
             height: 15.h,
@@ -89,7 +89,7 @@ class UvWidget extends StatelessWidget {
               ),
               subtitle: Text(
                 getUvMsg(data.currentData.uv),
-                style: TextStylePath.small12w400.copyWith(color: Colors.white),
+                style: TextStylePath.small12w400,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
@@ -171,9 +171,7 @@ class UvWidget extends StatelessWidget {
           children: [
             Text(
               '현재 자외선 지수',
-              style: TextStylePath.title18w600.copyWith(
-                color: Colors.white,
-              ),
+              style: TextStylePath.title18w600,
             ),
             SizedBox(
               width: 10.w,
@@ -215,11 +213,7 @@ class UvWidget extends StatelessWidget {
         ),
         children: <Widget>[
           ListTile(
-            title: Text(
-              getUvMsg(uv),
-              style: TextStylePath.small12w400.copyWith(color: Colors.white),
-              //overflow: TextOverflow.ellipsis,
-            ),
+            title: Text(getUvMsg(uv), style: TextStylePath.small12w400),
           ),
         ],
       ),
