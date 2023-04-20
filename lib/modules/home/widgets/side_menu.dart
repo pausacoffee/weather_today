@@ -5,9 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:weather_today/global/global_toggle_switch.dart';
 
 import '../../../config/app_config.dart';
+import '../../../global/global_toggle_switch.dart';
 import '../../../routes/app_router.dart';
 import '../../../service/condition_service.dart';
 import '../../../utils/text.dart';
@@ -21,57 +21,59 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeViewModel>(
       builder: (_, data, __) {
-        return Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.amber,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+        return data.isLoading
+            ? Drawer()
+            : Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
                   children: [
-                    Container(
-                      width: 80.w,
-                      height: 80.w,
+                    DrawerHeader(
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
-                      child: Image.asset(
-                        ConditionService().iconPath(
-                            code: data.currentData.condition.code,
-                            isDay: data.currentData.isDay),
-                        width: 60.w,
+                        color: Colors.amber,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 80.w,
+                            height: 80.w,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.white),
+                            child: Image.asset(
+                              ConditionService().iconPath(
+                                  code: data.currentData.condition.code,
+                                  isDay: data.currentData.isDay),
+                              width: 60.w,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Text(
+                            '오늘의 날씨',
+                            style: TextStylePath.title24w800
+                                .copyWith(color: Colors.white),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: 10.w,
+                    _switchScale(),
+                    ListTile(
+                      title: Text(data.currenTempScale()),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                    Text(
-                      '오늘의 날씨',
-                      style: TextStylePath.title24w800
-                          .copyWith(color: Colors.white),
+                    ListTile(
+                      title: Text('Item 2'),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ],
                 ),
-              ),
-              _switchScale(),
-              ListTile(
-                title: Text(data.currenTempScale()),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text('Item 2'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
+              );
       },
     );
   }

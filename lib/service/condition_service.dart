@@ -2,20 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
-import 'package:weather_today/models/code/condition_code_model.dart';
-import 'package:weather_today/models/code/language_model.dart';
 
-/// condition 에 대한 code data 관리 service
+import '../models/code/condition_code_model.dart';
+import '../models/code/language_model.dart';
+
+/// condition 에 대한 code data 관리
 class ConditionService {
   // Singleton ▼ ========================================
-  static final ConditionService _singleton = ConditionService._internal();
+  static final ConditionService _singleton = ConditionService._();
 
   /// condition에 대한 code data 관리
   factory ConditionService() {
     return _singleton;
   }
 
-  ConditionService._internal();
+  ConditionService._();
   // Variable ▼ ========================================
 
   /// condition 에 대한 code data list

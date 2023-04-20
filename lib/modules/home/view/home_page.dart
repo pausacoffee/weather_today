@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../global/global_skeleton_loader.dart';
+import '../../../service/theme_service.dart';
 import '../../../utils/text.dart';
 import '../model/home_view_model.dart';
 import '../../../routes/app_page.dart';
@@ -32,7 +33,8 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        drawer: homeViewModel.isLoading ? null : const SideMenu(),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        drawer: const SideMenu(),
         body: homeViewModel.isLoading ? _loadingView() : _body(),
       ),
     );
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
   /// 날씨 데이터에 의해 갱신되는 widget
   Widget _contents() {
     return Stack(children: [
-      _backgroundImg(),
+      //_backgroundImg(),
       CustomScrollView(
         slivers: [
           if (Platform.isIOS)
@@ -75,7 +77,7 @@ class _HomePageState extends State<HomePage> {
     ]);
   }
 
-  ///Home Page의 배경화면
+  ///Home Page의 배경화면 이미지
   Widget _backgroundImg() {
     return Container(
       color: Colors.amber,
@@ -133,30 +135,37 @@ class _HomePageState extends State<HomePage> {
           ),
           onPressed: () {
             Scaffold.of(context).openDrawer();
-          }, //TODO:메뉴 - drawer
+          },
         );
       }),
       actions: [
-        //TODO: 다크모드
-        IconButton(
-          icon: Icon(
-            Icons.search,
-            size: 30.sp,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            context
-                .pushNamed(APP_PAGE.address.toName)
-                .then((value) => homeViewModel.fetchViewModel());
+        Consumer<ThemeService>(
+          builder: (_, themeNotifier, __) {
+            return IconButton(
+              icon: themeNotifier.themeMode == ThemeMode.light
+                  ? Icon(
+                      Icons.light_mode_rounded,
+                      size: 30.sp,
+                      color: Colors.white,
+                    )
+                  : Icon(
+                      Icons.dark_mode_rounded,
+                      size: 30.sp,
+                      color: Colors.white,
+                    ),
+              onPressed: () {
+                if (themeNotifier.themeMode == ThemeMode.light) {
+                  themeNotifier.themeMode = ThemeMode.dark;
+                } else {
+                  themeNotifier.themeMode = ThemeMode.light;
+                }
+              },
+            );
           },
         ),
       ],
       pinned: true,
       centerTitle: true,
-      // floating: floating,
-      // snap: snap,
-      // expandedHeight: expandedHeight,
-      // flexibleSpace: flexibleSpace,
     );
   }
 

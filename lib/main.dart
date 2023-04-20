@@ -23,12 +23,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_today/service/app_service.dart';
 
 import 'config/app_provider_config.dart';
 import 'routes/app_router.dart';
+import 'service/app_service.dart';
+import 'service/theme_service.dart';
 import 'utils/color.dart';
 import 'utils/scroll_behavior.dart';
+import 'utils/theme.dart';
 
 void main() async {
   await initialize();
@@ -67,6 +69,8 @@ class _MyAppState extends State<MyApp> {
           child: Builder(builder: (context) {
             final GoRouter goRouter =
                 Provider.of<AppRouter>(context, listen: false).router;
+            final ThemeService themeNotifier =
+                Provider.of<ThemeService>(context, listen: false);
             return MaterialApp.router(
               // route 정보 전달
               routeInformationProvider: goRouter.routeInformationProvider,
@@ -88,16 +92,19 @@ class _MyAppState extends State<MyApp> {
                   child: widget!,
                 );
               },
-              theme: ThemeData(
-                appBarTheme: AppBarTheme(
-                  backgroundColor: ColorPath.bgColor,
-                  systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-                    statusBarColor: Colors.white.withOpacity(0.0),
-                  ),
-                ),
-                fontFamily: GoogleFonts.openSans().fontFamily,
-                scaffoldBackgroundColor: ColorPath.bgColor,
-              ),
+              // theme: ThemeData(
+              //   appBarTheme: AppBarTheme(
+              //     backgroundColor: ColorPath.bgColor,
+              //     systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+              //       statusBarColor: Colors.white.withOpacity(0.0),
+              //     ),
+              //   ),
+              //   fontFamily: GoogleFonts.openSans().fontFamily,
+              //   scaffoldBackgroundColor: ColorPath.bgColor,
+              // ),
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: themeNotifier.themeMode,
               debugShowCheckedModeBanner: false,
               scrollBehavior: AppScrollBehavior(),
               backButtonDispatcher: RootBackButtonDispatcher(),
@@ -130,6 +137,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+///initialize before runApp
 Future<void> initialize() async {
   /// Widget Binding 초기화
   WidgetsFlutterBinding.ensureInitialized();
@@ -145,6 +153,9 @@ Future<void> initialize() async {
 
   // 가로모드 방지
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  //theme 설정
+  ThemeService().init();
 
   // .env 초기화
   await dotenv.load();

@@ -1,9 +1,9 @@
-import 'package:weather_today/models/weather/astro_model.dart';
-import 'package:weather_today/models/weather/hour_model.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
+import 'astro_model.dart';
 import 'day_model.dart';
+import 'hour_model.dart';
 
 class ForecastdayModel {
   ForecastdayModel({

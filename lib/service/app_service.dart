@@ -1,21 +1,20 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:weather_today/config/app_config.dart';
 
-import '../api/weather_api.dart';
+import '../config/app_config.dart';
 import 'condition_service.dart';
 
 class AppService with ChangeNotifier {
   // Singleton ▼ ========================================
-  static final AppService _singleton = AppService._internal();
+  static final AppService _singleton = AppService._();
 
   ///router redirect listener : permission, auth, Data 초기화, 앱 설정 등..
   factory AppService() {
     return _singleton;
   }
 
-  AppService._internal();
+  AppService._();
 
   // Variable ▼ ========================================
   ///앱에 대한 init 여부
@@ -55,11 +54,6 @@ class AppService with ChangeNotifier {
 
     // Config 초기화
     AppConfig().init();
-
-    // Http 초기화 (디버그 모드일 경우)
-    // if (kDebugMode) {
-    //   HttpOverrides.global = MyHttpOverrides();
-    // }
 
     // 파이어베이스 초기화
     //await Firebase.initializeApp();

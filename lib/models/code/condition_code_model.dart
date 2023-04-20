@@ -1,4 +1,4 @@
-import 'package:weather_today/models/code/language_model.dart';
+import 'language_model.dart';
 
 /// condition code 정의 model
 /// api 의 condition과 code로 매칭하여 icon, lan 을 가져온다.

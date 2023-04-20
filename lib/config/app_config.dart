@@ -13,30 +13,54 @@ class AppConfig {
   AppConfig._();
   // Variable ▼ ========================================
 
+  bool _temperatureScale = false;
+
   ///온도 표기
   ///true : 화씨 (°F)
   ///false : 섭씨 (°C)
   ///기본 섭씨
   bool get temperatureScale => _temperatureScale;
-  bool _temperatureScale = false;
+
   set temperatureScale(bool value) {
     _temperatureScale = value;
 
-    saveScale(value);
+    saveTemperatureScale(value);
   }
 
+  ///속도 표기
+  ///true : miles
+  ///false : kilometer
+  ///기본 kilometer
+  bool get speedScale => _speedScale;
+  bool _speedScale = false;
+  set speedScale(bool value) {
+    _speedScale = value;
+
+    saveSpeedScale(value);
+  }
+
+  // Fucntion ▼ ========================================
   void init() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       _temperatureScale = prefs.getBool('temperature_scale') ?? false;
+      _speedScale = prefs.getBool('speed_scale') ?? false;
+      //_themeScale = prefs.getBool('theme_scale') ?? false;
     } catch (e) {
       Logger().d(e);
     }
   }
 
-  Future<void> saveScale(bool value) async {
+  Future<void> saveTemperatureScale(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('temperature_scale', value);
+
+    return;
+  }
+
+  Future<void> saveSpeedScale(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('speed_scale', value);
 
     return;
   }

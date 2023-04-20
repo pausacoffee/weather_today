@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:weather_today/service/app_service.dart';
 
 import '../global/global_dialog_widget.dart';
 import '../models/permission/permission_model.dart';
+import 'app_service.dart';
 
 class PermissionService {
   static PermissionService to = PermissionService();

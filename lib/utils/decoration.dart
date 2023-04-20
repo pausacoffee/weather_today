@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:weather_today/utils/text.dart';
 
 import 'color.dart';
+import 'text.dart';
 
 class APPINPUTDECORATION {
   static InputDecoration base(String hintText,

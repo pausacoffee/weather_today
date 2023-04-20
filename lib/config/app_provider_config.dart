@@ -5,6 +5,7 @@ import '../routes/app_router.dart';
 import '../service/app_service.dart';
 import '../modules/address/model/address_view_model.dart';
 import '../modules/home/model/home_view_model.dart';
+import '../service/theme_service.dart';
 
 class AppProviderConfig {
   AppProviderConfig._();
@@ -16,6 +17,7 @@ class AppProviderConfig {
       ChangeNotifierProvider<AddressViewModel>(
           create: (context) => AddressViewModel()),
       ChangeNotifierProvider<AppService>(create: (_) => AppService()),
+      ChangeNotifierProvider<ThemeService>(create: (context) => ThemeService()),
       Provider<AppRouter>(create: (_) => AppRouter()),
     ];
   }

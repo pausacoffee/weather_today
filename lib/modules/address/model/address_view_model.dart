@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
-import 'package:weather_today/models/address/common_model.dart';
-import 'package:weather_today/models/address/juso_model.dart';
 
 import '../../../api/address_api.dart';
 import '../../../api/base/base_response_model.dart';
 import '../../../global/global_toast_widget.dart';
+import '../../../models/address/common_model.dart';
+import '../../../models/address/juso_model.dart';
 
 class AddressViewModel extends ChangeNotifier {
   AddressViewModel();

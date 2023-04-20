@@ -1,6 +1,7 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_today/utils/text.dart';
+
+import '../utils/text.dart';
 
 class GlobalToggleSwitch extends StatefulWidget {
   const GlobalToggleSwitch({
