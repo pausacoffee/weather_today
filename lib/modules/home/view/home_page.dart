@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,76 +90,77 @@ class _HomePageState extends State<HomePage> {
 
   //appbar
   Widget _appBar() {
-    return SliverToBoxAdapter(
-      child: Container(
-        height: 50.h,
-        width: double.infinity,
-        color: Colors.transparent,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Builder(builder: (context) {
-              return IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                  size: 30.sp,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                }, //TODO:메뉴 - drawer
-              );
-            }),
-            const Spacer(),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(25.r)),
-              child: DropdownButton(
-                dropdownColor: Colors.black,
-                borderRadius: BorderRadius.circular(25.r),
-                underline: const SizedBox(),
-                elevation: 0,
-                value: homeViewModel.userLocation,
-                items: homeViewModel.userLocationList.map((String item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(
-                      item,
-                      style: TextStylePath.title18w800
-                          .copyWith(color: Colors.white),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (String? item) {
-                  if (item! == '+') {
-                    context.pushNamed(APP_PAGE.address.toName);
-                    return;
-                  }
-                  setState(() {
-                    homeViewModel.userLocation = item;
-                  });
-                },
-                iconSize: 24.sp,
-                iconEnabledColor: Colors.white,
-              ),
-            ),
-            const Spacer(),
-            IconButton(
-              icon: Icon(
-                Icons.search,
-                size: 30.sp,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                context
-                    .pushNamed(APP_PAGE.address.toName)
-                    .then((value) => homeViewModel.fetchViewModel());
+    return SliverAppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: FlexibleSpaceBar(
+            centerTitle: true,
+            title: DropdownButton(
+              dropdownColor: Colors.black,
+              borderRadius: BorderRadius.circular(25.r),
+              underline: const SizedBox(),
+              elevation: 0,
+              value: homeViewModel.userLocation,
+              items: homeViewModel.userLocationList.map((String item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style:
+                        TextStylePath.title18w800.copyWith(color: Colors.white),
+                  ),
+                );
+              }).toList(),
+              onChanged: (String? item) {
+                if (item! == '+') {
+                  context.pushNamed(APP_PAGE.address.toName);
+                  return;
+                }
+                setState(() {
+                  homeViewModel.userLocation = item;
+                });
               },
+              iconSize: 24.sp,
+              iconEnabledColor: Colors.white,
             ),
-          ],
+          ),
         ),
       ),
+      leading: Builder(builder: (context) {
+        return IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 30.sp,
+          ),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          }, //TODO:메뉴 - drawer
+        );
+      }),
+      actions: [
+        IconButton(
+          icon: Icon(
+            Icons.search,
+            size: 30.sp,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            context
+                .pushNamed(APP_PAGE.address.toName)
+                .then((value) => homeViewModel.fetchViewModel());
+          },
+        ),
+      ],
+      pinned: true,
+      centerTitle: true,
+      // floating: floating,
+      // snap: snap,
+      // expandedHeight: expandedHeight,
+      // flexibleSpace: flexibleSpace,
     );
   }
 

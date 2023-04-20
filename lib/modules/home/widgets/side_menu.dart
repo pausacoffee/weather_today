@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../service/condition_service.dart';
 import '../../../utils/text.dart';
@@ -52,26 +53,45 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           ),
+          _switchScale(),
           ListTile(
             title: const Text('Item 1'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: const Text('Item 2'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
             },
           ),
         ],
       ),
+    );
+  }
+
+  Widget _switchScale() {
+    return ToggleSwitch(
+      minWidth: 90.0,
+      minHeight: 70.0,
+      initialLabelIndex: 2,
+      cornerRadius: 20.0,
+      activeFgColor: Colors.white,
+      inactiveBgColor: Colors.grey,
+      inactiveFgColor: Colors.white,
+      iconSize: 30.0,
+      borderWidth: 2.0,
+      borderColor: const [Colors.blueGrey],
+      totalSwitches: 2,
+      labels: ['°F', '°C'],
+      activeBgColors: [
+        [Colors.blue],
+        [Colors.pink],
+      ],
+      onToggle: (index) {
+        print('switched to: $index');
+      },
     );
   }
 }

@@ -86,9 +86,9 @@ Color getUvColor(double uv) {
   if (uv <= 2) {
     color = Colors.green;
   } else if (uv <= 5) {
-    color = Colors.orange;
-  } else if (uv <= 7) {
     color = Colors.yellow;
+  } else if (uv <= 7) {
+    color = Colors.orange;
   } else if (uv <= 10) {
     color = Colors.red;
   } else {

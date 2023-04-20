@@ -16,7 +16,7 @@ class AppService with ChangeNotifier {
 
   AppService._internal();
 
-  // Getter Setter ▼ ========================================
+  // Variable ▼ ========================================
   ///앱에 대한 init 여부
   bool _initialized = false;
   bool get initialized => _initialized;
@@ -32,6 +32,17 @@ class AppService with ChangeNotifier {
 
   set permitted(bool value) {
     _permissionState = value;
+    notifyListeners();
+  }
+
+  ///온도 표기
+  ///true : 섭씨 (°C)
+  ///false : 화씨 (°F)
+  bool _temperatureScale = false;
+  bool get temperatureScale => _temperatureScale;
+
+  set temperatureScale(bool value) {
+    _temperatureScale = value;
     notifyListeners();
   }
 
