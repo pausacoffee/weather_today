@@ -1,10 +1,10 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-import '../../routes/app_router.dart';
-import '../../service/app_service.dart';
-import '../../modules/address/model/address_view_model.dart';
-import '../../modules/home/model/home_view_model.dart';
+import '../routes/app_router.dart';
+import '../service/app_service.dart';
+import '../modules/address/model/address_view_model.dart';
+import '../modules/home/model/home_view_model.dart';
 
 class AppProviderConfig {
   AppProviderConfig._();

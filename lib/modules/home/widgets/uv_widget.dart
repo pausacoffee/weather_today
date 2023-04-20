@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_today/utils/text.dart';
 
 import '../../../utils/utils.dart';
@@ -8,9 +9,9 @@ import '../model/home_view_model.dart';
 
 /// 자외선 지수 카드
 class UvWidget extends StatelessWidget {
-  const UvWidget({super.key, required this.data});
+  const UvWidget({super.key});
 
-  final HomeViewModel data;
+  //final HomeViewModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -56,53 +57,57 @@ class UvWidget extends StatelessWidget {
 
   ///자외선 지수 Tile : icon, level, 안내 문구
   Widget _uvToday(BuildContext context) {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(
-          top: 5.h,
-          bottom: 5.h,
-        ),
-        width: double.infinity,
-        child: ListTile(
-          onTap: () async {
-            _showBottomSheet(context);
-          },
-          leading: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.check_circle,
-                color: getUvColor(data.currentData.uv),
-                size: 50.sp,
+    return Consumer<HomeViewModel>(
+      builder: (_, data, __) {
+        return Expanded(
+          child: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(
+              top: 5.h,
+              bottom: 5.h,
+            ),
+            width: double.infinity,
+            child: ListTile(
+              onTap: () async {
+                _showBottomSheet(context);
+              },
+              leading: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    color: getUvColor(data.currentData.uv),
+                    size: 50.sp,
+                  ),
+                ],
               ),
-            ],
-          ),
-          title: Text(
-            getUvLevel(data.currentData.uv),
-            style: TextStylePath.base16w600
-                .copyWith(color: getUvColor(data.currentData.uv)),
-          ),
-          subtitle: Text(
-            getUvMsg(data.currentData.uv),
-            style: TextStylePath.small12w400.copyWith(color: Colors.white),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-          ),
-          isThreeLine: true,
-          trailing: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
+              title: Text(
+                getUvLevel(data.currentData.uv),
+                style: TextStylePath.base16w600
+                    .copyWith(color: getUvColor(data.currentData.uv)),
               ),
-            ],
+              subtitle: Text(
+                getUvMsg(data.currentData.uv),
+                style: TextStylePath.small12w400.copyWith(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              isThreeLine: true,
+              trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -159,25 +164,29 @@ class UvWidget extends StatelessWidget {
   }
 
   Widget _sheetTitle() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '현재 자외선 지수',
-          style: TextStylePath.title18w600.copyWith(
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(
-          width: 10.w,
-        ),
-        Text(
-          '낮음',
-          style: TextStylePath.title18w600.copyWith(
-            color: getUvColor(data.currentData.uv),
-          ),
-        ),
-      ],
+    return Consumer<HomeViewModel>(
+      builder: (_, data, __) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '현재 자외선 지수',
+              style: TextStylePath.title18w600.copyWith(
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Text(
+              '낮음',
+              style: TextStylePath.title18w600.copyWith(
+                color: getUvColor(data.currentData.uv),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

@@ -1,18 +1,11 @@
 /// Goal: provider, goRouter 를 사용하여 날씨앱을 만들자
 /// #<a href='https://pngtree.com/so/Weather'>Weather png from pngtree.com/</a>
 /// TODO:
-/// - API reponse 를 참고하여 response Model 만들기(done)
-/// - 퍼미션받기(위치 정보)(done)
-/// - "http://api.weatherapi.com/v1" 에 request 를 날려 날씨 결과값 받기(current만)
-/// - 날씨 결과값을 UI에 표시하기(done)
-/// - 도시 검색 기능 만들기(done)
+/// - 도씨, 화씨 변경(done)
 /// - '내 위치' Lon Lat 받아오기
 /// - '내 위치'로 날씨 결과값 받아오고, UI 에 표시하기
-/// - dark 모드
 /// - localization(en, kr)
-///
-///
-/// - 도씨, 화씨 변경
+///  - dark 모드
 /// - 즐겨찾기 기능 완성
 /// - 검색된 도시의 날씨 결과값 받아오고, UI 에 표시하기
 ///
@@ -32,7 +25,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_today/service/app_service.dart';
 
-import 'provider/config/app_provider_config.dart';
+import 'config/app_provider_config.dart';
 import 'routes/app_router.dart';
 import 'utils/color.dart';
 import 'utils/scroll_behavior.dart';

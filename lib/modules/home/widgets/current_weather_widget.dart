@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../service/condition_service.dart';
 import '../model/home_view_model.dart';
 
 class CurrentWeatherWidget extends StatelessWidget {
-  const CurrentWeatherWidget({super.key, required this.data});
-
-  final HomeViewModel data;
+  const CurrentWeatherWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,28 +57,30 @@ class CurrentWeatherWidget extends StatelessWidget {
 
   ///위치와 시간정보
   Widget _locationWithDate() {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            data.locationData.name,
-            style: GoogleFonts.lato(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+    return Consumer<HomeViewModel>(
+      builder: (_, data, __) => SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              data.locationData.name,
+              style: GoogleFonts.lato(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
-          Text(
-            data.locationData.localtime,
-            style: GoogleFonts.lato(
-              fontSize: 8.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+            Text(
+              data.locationData.localtime,
+              style: GoogleFonts.lato(
+                fontSize: 8.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -98,80 +99,94 @@ class CurrentWeatherWidget extends StatelessWidget {
 
   /// icon과 컨디션
   Widget _iconCondition() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset(
-          ConditionService().iconPath(
-              code: data.currentData.condition.code,
-              isDay: data.currentData.isDay),
-          //width: 120.w,
-        ),
-        SizedBox(
-          width: 10.h,
-        ),
-        Text(
-          ConditionService().dayText(data.currentData.condition.code),
-          style: GoogleFonts.lato(
-            fontSize: 16.sp,
-            color: Colors.white,
-          ),
-        ),
-      ],
+    return Consumer<HomeViewModel>(
+      builder: (_, data, __) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              ConditionService().iconPath(
+                  code: data.currentData.condition.code,
+                  isDay: data.currentData.isDay),
+              //width: 120.w,
+            ),
+            SizedBox(
+              width: 10.h,
+            ),
+            Text(
+              ConditionService().dayText(data.currentData.condition.code),
+              style: GoogleFonts.lato(
+                fontSize: 16.sp,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
   Widget _temperature() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.baseline,
-      textBaseline: TextBaseline.ideographic, //baseline사용시 필!
-      children: [
-        Text(
-          '${data.currentData.tempC}', //TODO: c <-> f
-          style: GoogleFonts.lato(
-            fontSize: 60.sp,
-            fontWeight: FontWeight.w300,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(
-          width: 10.w,
-        ),
-        Text(
-          '\u2103', //TODO: c <-> f
-          style: GoogleFonts.lato(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w300,
-            color: Colors.white,
-          ),
-        ),
-      ],
+    return Consumer<HomeViewModel>(
+      builder: (_, data, __) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.ideographic, //baseline사용시 필!
+          children: [
+            Text(
+              data.currenTemp(),
+              style: GoogleFonts.lato(
+                fontSize: 60.sp,
+                fontWeight: FontWeight.w300,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Text(
+              data.getTempScale(),
+              style: GoogleFonts.lato(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w300,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
   ///하단부
   Widget _bottomInfo() {
-    return ButtonBar(
-      alignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _bottomInfoItem(
-            type: 'Wind',
-            unit: 'km/h',
-            value: '${data.currentData.windKph}'), //TODO: KmH <-> Mph
-        SizedBox(
-          width: 10.w,
-        ),
-        _bottomInfoItem(
-            type: 'Rain',
-            unit: 'mm',
-            value: '${data.currentData.precipMm}'), //TODO: mm <-> inch
-        SizedBox(
-          width: 10.w,
-        ),
-        _bottomInfoItem(
-            type: 'Humidy', unit: '%', value: '${data.currentData.humidity}'),
-      ],
+    return Consumer<HomeViewModel>(
+      builder: (_, data, __) {
+        return ButtonBar(
+          alignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _bottomInfoItem(
+                type: 'Wind',
+                unit: 'km/h',
+                value: '${data.currentData.windKph}'), //TODO: KmH <-> Mph
+            SizedBox(
+              width: 10.w,
+            ),
+            _bottomInfoItem(
+                type: 'Rain',
+                unit: 'mm',
+                value: '${data.currentData.precipMm}'), //TODO: mm <-> inch
+            SizedBox(
+              width: 10.w,
+            ),
+            _bottomInfoItem(
+                type: 'Humidy',
+                unit: '%',
+                value: '${data.currentData.humidity}'),
+          ],
+        );
+      },
     );
   }
 

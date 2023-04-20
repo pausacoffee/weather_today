@@ -10,6 +10,7 @@ class ConditionService {
   // Singleton ▼ ========================================
   static final ConditionService _singleton = ConditionService._internal();
 
+  /// condition에 대한 code data 관리
   factory ConditionService() {
     return _singleton;
   }
@@ -21,7 +22,7 @@ class ConditionService {
   List<ConditionCodeModel> codeList = [];
 
   // Function ▼ ========================================
-
+  ///초기화
   void init() {
     try {
       readJson();
@@ -30,7 +31,7 @@ class ConditionService {
     }
   }
 
-  /// json 파일에서 읽기
+  /// json 파일에서 data 읽기
   Future<void> readJson() async {
     try {
       String response =

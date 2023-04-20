@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_today/utils/text.dart';
 
 import '../../../global/global_skeleton_loader.dart';
+import '../../../utils/text.dart';
 import '../model/home_view_model.dart';
 import '../../../routes/app_page.dart';
 import '../widgets/weather_per_hour_widget.dart';
@@ -58,23 +58,17 @@ class _HomePageState extends State<HomePage> {
             CupertinoSliverRefreshControl(
                 onRefresh: () async => await homeViewModel.fetchViewModel()),
           _appBar(),
-          SliverToBoxAdapter(
-            child: CurrentWeatherWidget(
-              data: homeViewModel,
-            ),
+          const SliverToBoxAdapter(
+            child: CurrentWeatherWidget(),
+          ),
+          const SliverToBoxAdapter(
+            child: UvWidget(),
           ),
           SliverToBoxAdapter(
-            child: UvWidget(
-              data: homeViewModel,
-            ),
+            child: WeatherPerHourWidget(),
           ),
           SliverToBoxAdapter(
-            child: WeatherPerHourWidget(
-              data: homeViewModel,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: _copyRight(),
+            child: _copyright(),
           ),
         ],
       ),
@@ -97,6 +91,7 @@ class _HomePageState extends State<HomePage> {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.zero, //vertical center
             centerTitle: true,
             title: DropdownButton(
               dropdownColor: Colors.black,
@@ -142,6 +137,7 @@ class _HomePageState extends State<HomePage> {
         );
       }),
       actions: [
+        //TODO: 다크모드
         IconButton(
           icon: Icon(
             Icons.search,
@@ -213,7 +209,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _copyRight() {
+  Widget _copyright() {
     return Container(
       padding: EdgeInsets.only(
         top: 10.h,

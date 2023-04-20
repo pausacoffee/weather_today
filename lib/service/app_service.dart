@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_today/config/app_config.dart';
 
 import '../api/weather_api.dart';
 import 'condition_service.dart';
 
-///앱 시작에 앞서 상태(로그인 여부, 퍼미션, 앱 데이터 로드)를 체크하고 redirect 를 위한 notify를 수행
 class AppService with ChangeNotifier {
   // Singleton ▼ ========================================
   static final AppService _singleton = AppService._internal();
 
+  ///router redirect listener : permission, auth, Data 초기화, 앱 설정 등..
   factory AppService() {
     return _singleton;
   }
@@ -21,28 +22,11 @@ class AppService with ChangeNotifier {
   bool _initialized = false;
   bool get initialized => _initialized;
 
-  set initialized(bool value) {
-    _initialized = value;
-    notifyListeners();
-  }
-
-  ///허용 여부
+  ///허용 여부(permission_service)
   bool _permissionState = false;
   bool get permitted => _permissionState;
-
   set permitted(bool value) {
     _permissionState = value;
-    notifyListeners();
-  }
-
-  ///온도 표기
-  ///true : 섭씨 (°C)
-  ///false : 화씨 (°F)
-  bool _temperatureScale = false;
-  bool get temperatureScale => _temperatureScale;
-
-  set temperatureScale(bool value) {
-    _temperatureScale = value;
     notifyListeners();
   }
 
@@ -54,6 +38,7 @@ class AppService with ChangeNotifier {
     await Future.delayed(const Duration(seconds: 2));
 
     _initialized = true;
+
     notifyListeners();
   }
 
@@ -65,8 +50,11 @@ class AppService with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _permissionState = prefs.getBool('initialize_permission') ?? false;
 
-    /// assets 에서 data load
+    //load condition data from json
     ConditionService().init();
+
+    // Config 초기화
+    AppConfig().init();
 
     // Http 초기화 (디버그 모드일 경우)
     // if (kDebugMode) {
@@ -82,14 +70,8 @@ class AppService with ChangeNotifier {
     //   javaScriptAppKey: dotenv.env['APP_KAKAO_JAVASCRIPT_APP_KEY'],
     // );
 
-    // Config 초기화
-    //Get.put(ConfigService());
-
     // 스크롤 서비스 초기화
     // Get.put(FCMService(), permanent: true);
-
-    /// 서버 설정 가져오기
-    //await ConfigService.to.handleInitialization();
 
     /// 카카오 맵 키
     // AuthRepository.initialize(

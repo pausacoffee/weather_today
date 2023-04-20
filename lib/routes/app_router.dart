@@ -81,18 +81,19 @@ class AppRouter {
       final permissionLocation = APP_PAGE.permission.toPath;
 
       final isInitialized = AppService().initialized;
-      final ispermitted = AppService().permitted;
+      final isPermitted = AppService().permitted;
 
-      final isGoingToInit = state.subloc == splashLocation;
+      final isGoingToSplash = state.subloc == splashLocation;
       final isGoingToPermission = state.subloc == permissionLocation;
+      //final isGoingToHome = state.subloc == homeLocation;
 
       /// 앱 시작전 권한, 로그인 여부, 세팅 등을 체크하고 route 한다.
-      if (!isInitialized && !isGoingToInit) {
+      if (!isInitialized && !isGoingToSplash) {
         return splashLocation;
-      } else if (isInitialized && !ispermitted && !isGoingToPermission) {
+      } else if (isInitialized && !isPermitted && !isGoingToPermission) {
         return permissionLocation;
-      } else if ((isInitialized && isGoingToInit) ||
-          (ispermitted && isGoingToPermission)) {
+      } else if ((isInitialized && isGoingToSplash) ||
+          (isPermitted && isGoingToPermission)) {
         return homeLocation; //위 체크가 끝나면 home으로!
       } else {
         // Else Don't do anything
