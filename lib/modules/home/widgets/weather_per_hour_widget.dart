@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_today/utils/locale_util.dart';
 
 import '../../../global/global_button.dart';
 import '../../../models/weather/hour_model.dart';
@@ -237,8 +238,7 @@ class WeatherPerHourWidget extends StatelessWidget {
                 height: 8.h,
               ),
               Text(
-                convertWindDirection(
-                    data.hourList[index].windDir), //TODO: c <-> f
+                convertWindDirection(data.hourList[index].windDir, _),
                 style: TextStylePath.small12w300,
               ),
               SizedBox(
@@ -355,22 +355,28 @@ class WeatherPerHourWidget extends StatelessWidget {
 // Variable ▼ ========================================
   final List<Tab> forcastTabs = <Tab>[
     Tab(
-      child: Text(
-        '날씨',
-        style: TextStylePath.small14w600,
-      ),
+      child: Builder(builder: (_) {
+        return Text(
+          translation(_).weather,
+          style: TextStylePath.small14w600,
+        );
+      }),
     ),
     Tab(
-      child: Text(
-        '바람',
-        style: TextStylePath.small14w600,
-      ),
+      child: Builder(builder: (_) {
+        return Text(
+          translation(_).wind,
+          style: TextStylePath.small14w600,
+        );
+      }),
     ),
     Tab(
-      child: Text(
-        '습도',
-        style: TextStylePath.small14w600,
-      ),
+      child: Builder(builder: (_) {
+        return Text(
+          translation(_).humidy,
+          style: TextStylePath.small14w600,
+        );
+      }),
     ),
   ];
 }

@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../../global/global_button.dart';
 import '../../../service/permission_service.dart';
 import '../../../utils/color.dart';
+import '../../../utils/locale_util.dart';
 import '../../../utils/text.dart';
 
 /// 권한 요청 화면
@@ -28,8 +29,8 @@ class PermissionPage extends StatelessWidget {
         onWillPop: () => handlePrevBack(context),
         child: Scaffold(
           appBar: AppBar(
-            title: const Center(
-              child: Text('접근권한 안내'),
+            title: Center(
+              child: Text(translation(context).guide_permission),
             ),
             backgroundColor: Colors.black,
             elevation: 0,
@@ -47,7 +48,7 @@ class PermissionPage extends StatelessWidget {
                   width: double.infinity,
                   alignment: Alignment.center,
                   child: Text(
-                    'APP 사용을 위해\n다음 접근권한을 사용하고 있습니다.',
+                    translation(context).guide_msg_permission,
                     textAlign: TextAlign.center,
                     style: TextStylePath.title18w600,
                   ),
@@ -95,7 +96,7 @@ class PermissionPage extends StatelessWidget {
                 }).toList(),
                 const Spacer(),
                 GlobalButton(
-                    title: "확인",
+                    title: translation(context).confirm,
                     onClick: () => PermissionService.to
                         .handlePermissionOnPressed(context)),
                 SizedBox(
@@ -116,7 +117,7 @@ class PermissionPage extends StatelessWidget {
     if (now.difference(currentDateTime) > const Duration(milliseconds: 1000)) {
       currentDateTime = now;
       Fluttertoast.showToast(
-        msg: '한번 더 누르면 앱이 종료됩니다',
+        msg: translation(context).click_one_more_to_close,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

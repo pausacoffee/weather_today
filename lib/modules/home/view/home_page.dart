@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_today/utils/locale_util.dart';
 
 import '../../../global/global_skeleton_loader.dart';
 import '../../../service/theme_service.dart';
@@ -242,28 +243,30 @@ class _HomePageState extends State<HomePage> {
         left: 60.w,
       ),
       alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            '오늘의 날씨',
-            style: TextStylePath.base16w600.copyWith(color: Colors.white70),
-            softWrap: true,
-          ),
-          Text(
-            '데이터 권한 : Copyright © Weather API',
-            style: TextStylePath.small12w300.copyWith(color: Colors.white54),
-            softWrap: true,
-          ),
-          Text(
-            '이 자료는 인증받지 않은 자료로 표출방식에 따라 차이가 있을 수 있습니다.',
-            style: TextStylePath.small12w300.copyWith(color: Colors.white54),
-            textAlign: TextAlign.center,
-            softWrap: true,
-          ),
-        ],
-      ),
+      child: Builder(builder: (context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              translation(context).app_title,
+              style: TextStylePath.base16w600.copyWith(color: Colors.white70),
+              softWrap: true,
+            ),
+            Text(
+              translation(context).copyright_api,
+              style: TextStylePath.small12w300.copyWith(color: Colors.white54),
+              softWrap: true,
+            ),
+            Text(
+              translation(context).copyright_msg,
+              style: TextStylePath.small12w300.copyWith(color: Colors.white54),
+              textAlign: TextAlign.center,
+              softWrap: true,
+            ),
+          ],
+        );
+      }),
     );
   }
 

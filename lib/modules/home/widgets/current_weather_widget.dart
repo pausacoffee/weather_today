@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../service/condition_service.dart';
+import '../../../utils/locale_util.dart';
 import '../model/home_view_model.dart';
 
 class CurrentWeatherWidget extends StatelessWidget {
@@ -167,21 +168,21 @@ class CurrentWeatherWidget extends StatelessWidget {
           alignment: MainAxisAlignment.spaceBetween,
           children: [
             _bottomInfoItem(
-                type: 'Wind',
+                type: translation(_).wind,
                 unit: 'km/h',
                 value: '${data.currentData.windKph}'), //TODO: KmH <-> Mph
             SizedBox(
               width: 10.w,
             ),
             _bottomInfoItem(
-                type: 'Rain',
+                type: translation(_).rain,
                 unit: 'mm',
                 value: '${data.currentData.precipMm}'), //TODO: mm <-> inch
             SizedBox(
               width: 10.w,
             ),
             _bottomInfoItem(
-                type: 'Humidy',
+                type: translation(_).humidy,
                 unit: '%',
                 value: '${data.currentData.humidity}'),
           ],

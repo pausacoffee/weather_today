@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_today/utils/locale_util.dart';
 
 import '../../../utils/text.dart';
 import '../../../utils/utils.dart';
@@ -38,20 +39,22 @@ class UvWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '자외선 지수',
-            style: TextStylePath.small14w600,
-          ),
-          Divider(
-            height: 15.h,
-            color: Colors.white60,
-          ),
-          _uvToday(context),
-        ],
-      ),
+      child: Builder(builder: (_) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              translation(_).uv_index,
+              style: TextStylePath.small14w600,
+            ),
+            Divider(
+              height: 15.h,
+              color: Colors.white60,
+            ),
+            _uvToday(context),
+          ],
+        );
+      }),
     );
   }
 
@@ -83,12 +86,12 @@ class UvWidget extends StatelessWidget {
                 ],
               ),
               title: Text(
-                getUvLevel(data.currentData.uv),
+                getUvLevel(data.currentData.uv, _),
                 style: TextStylePath.base16w600
                     .copyWith(color: getUvColor(data.currentData.uv)),
               ),
               subtitle: Text(
-                getUvMsg(data.currentData.uv),
+                getUvMsg(data.currentData.uv, _),
                 style: TextStylePath.small12w400,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -170,14 +173,14 @@ class UvWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '현재 자외선 지수',
+              translation(_).uv_current_index,
               style: TextStylePath.title18w600,
             ),
             SizedBox(
               width: 10.w,
             ),
             Text(
-              '낮음',
+              getUvLevel(data.currentData.uv, _),
               style: TextStylePath.title18w600.copyWith(
                 color: getUvColor(data.currentData.uv),
               ),
@@ -189,35 +192,38 @@ class UvWidget extends StatelessWidget {
   }
 
   Widget _sheetItem(double uv) {
-    return Container(
-      margin: EdgeInsets.only(
-        top: 2.h,
-        bottom: 2.h,
-      ),
-      decoration: BoxDecoration(
-        border: Border(
-          left: BorderSide(
-            color: getUvColor(uv),
-            width: 2.w,
+    return Builder(builder: (context) {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 2.h,
+          bottom: 2.h,
+        ),
+        decoration: BoxDecoration(
+          border: Border(
+            left: BorderSide(
+              color: getUvColor(uv),
+              width: 2.w,
+            ),
           ),
         ),
-      ),
-      child: ExpansionTile(
-        iconColor: Colors.white,
-        collapsedIconColor: Colors.white,
-        title: Text(
-          getUvLevel(uv),
-          style: TextStylePath.base16w600.copyWith(
-            color: getUvColor(uv),
+        child: ExpansionTile(
+          iconColor: Colors.white,
+          collapsedIconColor: Colors.white,
+          title: Text(
+            getUvLevel(uv, context),
+            style: TextStylePath.base16w600.copyWith(
+              color: getUvColor(uv),
+            ),
           ),
+          children: <Widget>[
+            ListTile(
+              title:
+                  Text(getUvMsg(uv, context), style: TextStylePath.small12w400),
+            ),
+          ],
         ),
-        children: <Widget>[
-          ListTile(
-            title: Text(getUvMsg(uv), style: TextStylePath.small12w400),
-          ),
-        ],
-      ),
-    );
+      );
+    });
   }
 
   //Bottom Sheet의 귀여운 핸들바

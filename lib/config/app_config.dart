@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../utils/locale_util.dart';
 
 class AppConfig {
   // Singleton ▼ ========================================
@@ -45,7 +49,6 @@ class AppConfig {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       _temperatureScale = prefs.getBool('temperature_scale') ?? false;
       _speedScale = prefs.getBool('speed_scale') ?? false;
-      //_themeScale = prefs.getBool('theme_scale') ?? false;
     } catch (e) {
       Logger().d(e);
     }

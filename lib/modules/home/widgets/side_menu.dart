@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../config/app_config.dart';
 import '../../../global/global_toggle_switch.dart';
 import '../../../service/condition_service.dart';
+import '../../../utils/locale_util.dart';
 import '../../../utils/text.dart';
 import '../model/home_view_model.dart';
 
@@ -52,7 +53,7 @@ class SideMenu extends StatelessWidget {
                               width: 10.w,
                             ),
                             Text(
-                              '오늘의 날씨',
+                              translation(_).app_title,
                               style: TextStylePath.title24w800,
                             ),
                           ],
@@ -84,7 +85,7 @@ class SideMenu extends StatelessWidget {
       builder: (_, data, __) {
         return ListTile(
           leading: Text(
-            '기온 단위',
+            translation(_).temperate_scale,
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           title: Container(

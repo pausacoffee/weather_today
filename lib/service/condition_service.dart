@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
 import '../models/code/condition_code_model.dart';
@@ -60,7 +61,8 @@ class ConditionService {
       );
 
       LanguageModel lan = condition.languages.firstWhere(
-        (lan) => lan.langIso == 'ko', //TODO: scale에 따라 언어 바꾸기
+        (lan) => lan.langIso == 'ko', //TODO:  //Localizations.localeOf(context)
+
         orElse: () => LanguageModel(
             dayText: '', langIso: '', langName: '', nightText: ''),
       );

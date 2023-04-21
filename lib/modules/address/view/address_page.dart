@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../../utils/locale_util.dart';
 import '../widgets/address_search_widget.dart';
 
 class AddressPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class AddressPage extends StatelessWidget {
         },
         child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: _appBar(),
+          appBar: _appBar(context),
           body: _body(),
         ),
       ),
@@ -31,10 +32,10 @@ Widget _body() {
 }
 
 ///appbar
-AppBar _appBar() {
+AppBar _appBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.transparent,
-    title: const Text('관심 지역'),
+    title: Text(translation(context).favorite_location),
     centerTitle: true,
     actions: [
       IconButton(

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../global/global_appbar.dart';
 import '../../../utils/color.dart';
+import '../../../utils/locale_util.dart';
 import '../../../utils/text.dart';
 
 class ErrorPage extends StatelessWidget {
@@ -11,8 +12,8 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GlobalAppBar(
-        "에러 발생",
+      appBar: GlobalAppBar(
+        translation(context).error_occur,
         isBack: true,
         centerTitle: true,
       ),
@@ -32,7 +33,7 @@ class ErrorPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.w),
-            Text("404 오류",
+            Text(translation(context).error_404,
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w500,
@@ -42,7 +43,7 @@ class ErrorPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * .05,
             ),
             Text(
-              "유저분에게 불편을 드려 죄송합니다.\n 서버에서 요청하신 페이지를 찾을 수 없습니다",
+              translation(context).error_page_msg,
               textAlign: TextAlign.center,
               style: TextStylePath.base16w600.copyWith(
                 color: ColorPath.textDisableColor1,

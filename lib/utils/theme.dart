@@ -8,8 +8,17 @@ final darkTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.black,
   brightness: Brightness.dark,
-  dividerColor: Colors.black12,
+  dividerColor: Colors.transparent,
   fontFamily: GoogleFonts.openSans().fontFamily,
+  inputDecorationTheme: const InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.transparent, width: 2.0),
+    ),
+  ),
+  dividerTheme: const DividerThemeData(
+    color: Colors.transparent, // 테두리 색상을 지정합니다.
+    thickness: 2.0, // 테두리 두께를 지정합니다.
+  ),
 );
 
 final lightTheme = ThemeData(
@@ -18,8 +27,17 @@ final lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
   brightness: Brightness.light,
-  dividerColor: Colors.white54,
+  dividerColor: Colors.transparent,
   fontFamily: GoogleFonts.openSans().fontFamily,
+  inputDecorationTheme: const InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.transparent, width: 2.0),
+    ),
+  ),
+  dividerTheme: const DividerThemeData(
+    color: Colors.transparent, // 테두리 색상을 지정합니다.
+    thickness: 2.0, // 테두리 두께를 지정합니다.
+  ),
 );
 
 const darkColorScheme = ColorScheme(

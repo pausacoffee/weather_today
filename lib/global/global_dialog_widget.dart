@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weather_today/utils/locale_util.dart';
 
 import '../service/permission_service.dart';
 
@@ -16,14 +16,14 @@ class GlobalPermissionDialog extends StatelessWidget {
       child: WillPopScope(
         onWillPop: () => Future(() => false),
         child: CupertinoAlertDialog(
-          title: const Text('권한을 허용해주세요'),
+          title: Text(translation(context).allow_permission_plz),
           content: Column(
             children: [
               SizedBox(height: 10.h),
               SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "접근 권한이 없어 해당 기능을 사용할 수 없습니다. ${dotenv.env["APP_KO_NAME"]}을 원활하게 이용하기 위해서 권한을 허용해주세요",
+                  translation(context).allow_permission_for_app_plz,
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -40,17 +40,17 @@ class GlobalPermissionDialog extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       width: double.infinity,
                       child: Text(
-                        '허용이 필요한 항목',
+                        translation(context).required_permission,
                         textAlign: TextAlign.left,
                       ),
                     ),
                     Row(
                       children: [
                         Text(
-                          '위치기반',
+                          translation(context).location_based,
                           style: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: 12.sp,
@@ -60,8 +60,8 @@ class GlobalPermissionDialog extends StatelessWidget {
                         SizedBox(width: 21.w),
                         Text(
                           controller.isLocationPermissionsGranted
-                              ? '허용'
-                              : '비허용',
+                              ? translation(context).allowed
+                              : translation(context).not_allowed,
                           style: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: 12.sp,
@@ -78,7 +78,7 @@ class GlobalPermissionDialog extends StatelessWidget {
           actions: [
             CupertinoDialogAction(
               child: Text(
-                '취소',
+                translation(context).cancle,
                 style: TextStyle(
                   color: Colors.grey.shade700,
                 ),
@@ -87,7 +87,7 @@ class GlobalPermissionDialog extends StatelessWidget {
               //TODO: controller.handlePermissionDialogCancelOnPressed(),
             ),
             CupertinoDialogAction(
-              child: const Text('설정'),
+              child: Text(translation(context).setting),
               onPressed:
                   () {}, //TODO: controller.handlePermissionReOnPressed(),
             ),

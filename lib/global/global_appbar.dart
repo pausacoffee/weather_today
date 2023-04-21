@@ -30,8 +30,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: isBack
           ? IconButton(
-              onPressed:
-                  () {}, //TODO: onBack != null ? () => onBack!() : () => Get.back(),
+              onPressed: () {},
               icon: Icon(
                 Icons.keyboard_arrow_left_rounded,
                 color: isWhiteTheme ? Colors.white : Colors.black,
@@ -113,8 +112,7 @@ class GlobalSliverAppBar extends StatelessWidget {
       ),
       leading: isBack
           ? IconButton(
-              onPressed:
-                  () {}, //TODO:onBack != null ? () => onBack!() : () => Get.back(),
+              onPressed: () {},
               icon: Icon(
                 Icons.keyboard_arrow_left_rounded,
                 color: isWhiteTheme ? Colors.white : Colors.black,

@@ -1,6 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+import 'locale_util.dart';
+
 // UI 표시 관련 ▼ ========================================
 
 /// 숫자를 원단위로 표기
@@ -37,40 +39,40 @@ String formatWeatherTime(String timeStr) {
 }
 
 /// 영어로된 풍향 약어를 한국어로 바꾸어줌
-String convertWindDirection(String direction) {
+String convertWindDirection(String direction, BuildContext context) {
   switch (direction) {
     case 'N':
-      return '북';
+      return translation(context).direction_n;
     case 'NNE':
-      return '북북동';
+      return translation(context).direction_nne;
     case 'NE':
-      return '북동';
+      return translation(context).direction_ne;
     case 'ENE':
-      return '동북동';
+      return translation(context).direction_ene;
     case 'E':
-      return '동';
+      return translation(context).direction_e;
     case 'ESE':
-      return '동남동';
+      return translation(context).direction_ese;
     case 'SE':
-      return '남동';
+      return translation(context).direction_se;
     case 'SSE':
-      return '남남동';
+      return translation(context).direction_sse;
     case 'S':
-      return '남';
+      return translation(context).direction_s;
     case 'SSW':
-      return '남남서';
+      return translation(context).direction_ssw;
     case 'SW':
-      return '남서';
+      return translation(context).direction_s;
     case 'WSW':
-      return '서남서';
+      return translation(context).direction_wsw;
     case 'W':
-      return '서';
+      return translation(context).direction_w;
     case 'WNW':
-      return '서북서';
+      return translation(context).direction_wnw;
     case 'NW':
-      return '북서';
+      return translation(context).direction_nw;
     case 'NNW':
-      return '북북서';
+      return translation(context).direction_nnw;
     default:
       return '';
   }
@@ -99,38 +101,38 @@ Color getUvColor(double uv) {
 }
 
 ///uv 지수에 따른 레벨
-String getUvLevel(double uv) {
+String getUvLevel(double uv, BuildContext context) {
   String result = '';
 
   if (uv <= 2) {
-    result = '낮음';
+    result = translation(context).danger_low;
   } else if (uv <= 5) {
-    result = '보통';
+    result = translation(context).danger_moderate;
   } else if (uv <= 7) {
-    result = '높음';
+    result = translation(context).danger_high;
   } else if (uv <= 10) {
-    result = '매우 높음';
+    result = translation(context).danger_very_high;
   } else {
-    result = '위험';
+    result = translation(context).danger_extreme;
   }
 
   return result;
 }
 
 ///uv 지수에 따른 안내 문구
-String getUvMsg(double uv) {
+String getUvMsg(double uv, BuildContext context) {
   String result = '';
+
   if (uv <= 2) {
-    result = '자외선 복사로 인한 위험이 적어요. 하지만 민감하신 분들은 꼭 자외선 차단제를 챙기세요.';
+    result = translation(context).danger_msg_low;
   } else if (uv <= 5) {
-    result = '자외선 차단제와 외투를 준비해 주세요.';
+    result = translation(context).danger_msg_moderate;
   } else if (uv <= 7) {
-    result = '태양에 오래 노출되면 위험해요! 자외선 차단제와 외투, 선글라스를 준비해 주세요.';
+    result = translation(context).danger_msg_high;
   } else if (uv <= 10) {
-    result =
-        '강한 자외선에 피부가 빠르게 탈 수 있어요! 실내나 그늘에 머물러야 해요. 자외선 차단제와 외투 선글라스를 준비해 주세요.';
+    result = translation(context).danger_msg_very_high;
   } else {
-    result = '수십분만 노출되어도 매우 위험해요! 자외선 차단제를 2시간마다 발라주세요.';
+    result = translation(context).danger_msg_extreme;
   }
 
   return result;

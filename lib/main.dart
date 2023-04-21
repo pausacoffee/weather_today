@@ -1,11 +1,9 @@
 /// Goal: provider, goRouter 를 사용하여 날씨앱을 만들자
 /// #<a href='https://pngtree.com/so/Weather'>Weather png from pngtree.com/</a>
 /// TODO:
-/// - 도씨, 화씨 변경(done)
 /// - '내 위치' Lon Lat 받아오기
 /// - '내 위치'로 날씨 결과값 받아오고, UI 에 표시하기
 /// - localization(en, kr)
-///  - dark 모드
 /// - 즐겨찾기 기능 완성
 /// - 검색된 도시의 날씨 결과값 받아오고, UI 에 표시하기
 ///
@@ -17,18 +15,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'config/app_provider_config.dart';
 import 'routes/app_router.dart';
 import 'service/app_service.dart';
 import 'service/theme_service.dart';
-import 'utils/color.dart';
 import 'utils/scroll_behavior.dart';
 import 'utils/theme.dart';
 
@@ -43,13 +39,28 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorRenderObjectOfType();
+    state?.setLocale(newLocale);
+  }
 }
 
 class _MyAppState extends State<MyApp> {
+  ///app service
   late AppService appService;
 
   /// 현재 시간
   DateTime currentDateTime = DateTime.now();
+
+  ///언어
+  Locale? _locale;
+
+  setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   void initState() {
@@ -78,14 +89,9 @@ class _MyAppState extends State<MyApp> {
               routeInformationParser: goRouter.routeInformationParser,
               // 위에서 변경된 값으로 실제로 어떤 라우트를 보여줄지 정하는 함수
               routerDelegate: goRouter.routerDelegate,
-              locale: const Locale('ko', 'KR'),
-              localizationsDelegates: const [
-                GlobalCupertinoLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale('ko', 'KR'),
-              ],
+              locale: _locale,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
               builder: (context, widget) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
