@@ -21,7 +21,7 @@
 
 ## 자랑하고 싶은 코드
 
-<details><summary><b>앱 initialize 후리다이렉트</b></summary>
+<details><summary><b>앱 initialize 후 리다이렉트</b></summary>
   - goRouter를 사용하여 redirect를 구현하였습니다. 
   예를들어 app의 시작후 splahPage가 보여지는데, 데이터를 불러오기가 마치면 home page로 redirect하였습니다.
   혹은 permission을 사용자로부터 요청하는 page로 redirec합니다.
