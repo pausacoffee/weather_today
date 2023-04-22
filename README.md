@@ -21,9 +21,11 @@
 
 ## 자랑하고 싶은 코드
 
-<details><summary><b>앱 initialize 후 HomePage로 리다이렉트</b></summary>
+<details><summary><b>앱 initialize 후리다이렉트</b></summary>
   - goRouter를 사용하여 redirect를 구현하였습니다. 
   예를들어 app의 시작후 splahPage가 보여지는데, 데이터를 불러오기가 마치면 home page로 redirect하였습니다.
+  혹은 permission을 사용자로부터 요청하는 page로 redirec합니다.
+  로그인이 필요한 경우 login page 로 이동하는 redirect 또한 이 곳에서 처리가 가능합니다.
   
 ```dart
 /// goRouter 을 사용하여 navigation 과 조건에 따라 redirect를 수행
@@ -145,9 +147,241 @@ class AppService with ChangeNotifier {
 </details>
   
 <details><summary><b>RestApi</b></summary>
+```dart
+ weatherapi.com 와 통신할 공통 API를 만들어 관리하였습니다. 앱 어디에서건  WeatherApi 클래스를 통해 weatherapi.com으로부터 data를 얻어 올 수 있습니다.
+/// 날씨 API
+class WeatherApi {
+  // Singleton ▼ ==========================================
+  static final WeatherApi _singleton = WeatherApi._();
+  factory WeatherApi() => _singleton;
+  WeatherApi._();
+
+  // Function ▼ ==========================================
+  /// Fetch Weather Api Data (type : current)
+  /// url parameter
+  /// q : Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name.
+  /// aqi : Get air quality data
+  Future<BaseResponseModel?> handleFetchCurrent(String location) async {
+    try {
+      BaseResponseModel response = await BaseHttp.dio(
+          method: 'GET',
+          url:
+              '${dotenv.env["APP_API_URL"]}current.json?aqi=yes&key=${dotenv.env['APP_API_KEY']!}&q=$location');
+
+      switch (response.statusCode) {
+        case 200:
+          if (kDebugMode) {
+            Logger().d(response.toString());
+          }
+
+          return response;
+
+          break;
+        case 400:
+        case 401:
+        case 402:
+        case 403:
+          if (response.body['error'] != null) {
+            ErrorModel errorData = ErrorModel.fromJson(response.body['error']);
+
+            throw Exception(errorData.message);
+          }
+          break;
+        default:
+        //throw Exception(response.message);
+      }
+    } catch (e) {
+      GlobalToastWidget(message: e.toString().substring(11));
+      Logger().d(e.toString());
+    }
+    return null;
+  }
+
+  /// Fetch Weather Api Data (type : forcast)
+  /// url parameter
+  /// q : Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name.
+  /// days : Number of days of weather forecast. Value ranges from 1 to 10
+  /// aqi : Get air quality data
+  /// alerts : Get weather alert data
+  Future<BaseResponseModel?> handleFetchForcast(String location) async {
+    try {
+      BaseResponseModel response = await BaseHttp.dio(
+          method: 'GET',
+          url:
+              '${dotenv.env["APP_API_URL"]}forecast.json?key=${dotenv.env['APP_API_KEY']!}&q=$location&days=3&aqi=yes&alerts=yes');
+
+      switch (response.statusCode) {
+        case 200:
+          if (kDebugMode) {
+            Logger().d(response.toString());
+          }
+
+          return response;
+
+          break;
+        case 400:
+        case 401:
+        case 402:
+        case 403:
+          if (response.body['error'] != null) {
+            ErrorModel errorData = ErrorModel.fromJson(response.body['error']);
+
+            throw Exception(errorData.message);
+          }
+          break;
+        default:
+        //throw Exception(response.message);
+      }
+    } catch (e) {
+      GlobalToastWidget(message: e.toString().substring(11));
+      Logger().d(e.toString());
+    }
+    return null;
+  }
+}
+
+```
 </details>
   
-<details><summary><b>Scroller controller</b></summary>
+<details><summary><b>pagination</b></summary>
+  주소 검색 기능을 개발하며 pagination을 구현하였습니다.
+  주소 검색 API를 통해 첫 데이터를 받아오고, update를 통해 추가 데이터를 받아오게 구성하였습니다.
+  
+```dart
+//address_search_widget.dart
+  /// 주소 검색창
+  Widget _searchAddress() {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      ...,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.r),
+        color: Colors.grey[400],
+      ),
+      child: Column(
+        children: [
+          //검색창
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  focusNode: _focusNode,
+                  controller: _editController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 10.w,
+                      horizontal: 10.w,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _editController.clear();
+
+                        setState(() {
+                          _isExpanded = false;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.cancel_rounded,
+                        color: Colors.grey,
+                        size: 20.sp,
+                      ),
+                    ),
+                    hintText: '지역 검색',
+                    hintStyle: TextStylePath.small14w400,
+                  ),
+                ),
+              ),
+              //indicator and icon button
+              SizedBox(
+                height: 40.h,
+                width: 40.w,
+                child: addressViewModel.isLoading
+                    ? Transform.scale(
+                        scale: 0.5,
+                        child: const CircularProgressIndicator(),
+                      )
+                    : IconButton(
+                        onPressed: () async {
+                          await addressViewModel
+                              .fetchAddressData(_editController.text);//이곳에서 fetch를 시작
+
+                          setState(() {
+                            if (_editController.text.isNotEmpty) {
+                              _isExpanded = !_isExpanded;
+                            }
+                          });
+                        },
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                          size: 30.sp,
+                        ),
+                      ),
+              ),
+            ],
+          ),
+
+          //검색결과
+          _resultAddress(),
+        ],
+      ),
+    );
+  }
+
+  /// 주소 검색 결과 List
+  Widget _resultAddress() {
+    return Expanded(
+      child: ListView.builder(
+        controller: _scrollController,//_scrollController을 연결하여 scroll의 마지막에서 data를 update!
+        scrollDirection: Axis.vertical,
+        itemCount: addressViewModel.jusoList.length,
+        itemBuilder: (context, index) {
+          JusoModel item = addressViewModel.jusoList[index];
+          return Container(
+            padding: EdgeInsets.only(right: 10.w, left: 10.w),
+            child: InkWell(
+              onTap: () {
+              },
+              child: ListTile(
+                title: Text(
+                  item.roadAddrPart1,
+                  style: TextStylePath.title18w400.copyWith(
+                    color: Colors.grey[50],
+                  ),
+                ),
+                subtitle: Text(
+                  item.jibunAddr,
+                  style: TextStylePath.small12w400.copyWith(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Override ▼ ========================================
+  @override
+  void initState() {
+  
+    _scrollController.addListener(() {
+      if (!addressViewModel.isProcess &&
+          (addressViewModel.currentPage * addressViewModel.cntPerPage <
+              addressViewModel.totalCount) &&
+          _scrollController.offset >=
+              _scrollController.position.maxScrollExtent - 300) {
+  //data를 받아오는 중이 아니고, api에서 더 받아올 데이터가 있다면 update
+        addressViewModel.updateAddressData();
+      }
+    });
+    super.initState();
+  }
+```
+  
 </details>
 
 ## 회고 / 느낀 점
