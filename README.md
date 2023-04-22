@@ -21,7 +21,8 @@
 
 ## 자랑하고 싶은 코드
 <details><summary><b>앱 initialize 후 HomePage로 리다이렉트</b></summary>
-  ~~~dart
+<div markdown="1">
+~~~dart
   import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weather_today/modules/setting/view/setting_page.dart';
@@ -152,8 +153,8 @@ class AppRouter {
     },
   );
 }
-
-  ~~~
+~~~dart
+</div>
   
 </details>
 <details><summary><b>RestApi</b></summary>
