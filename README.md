@@ -20,6 +20,7 @@
 - 사용자는 scale을 지정할 수 있다.(바람 속도 단위, 기온 단위)
 
 ## 자랑하고 싶은 코드
+<br>
 <details><summary><b>앱 initialize 후 HomePage로 리다이렉트</b></summary>
 <div markdown="1">
 ~~~dart
@@ -156,9 +157,11 @@ class AppRouter {
 ~~~dart
 </div>
   
-</details>
+</details></br>
+  
 <details><summary><b>RestApi</b></summary>
 </details>
+  
 <details><summary><b>Scroller controller</b></summary>
 </details>
 
