@@ -151,7 +151,7 @@ class AppService with ChangeNotifier {
   앱 어디에서건  WeatherApi 클래스를 통해 weatherapi.com으로부터 data를 얻어 올 수 있습니다. 
   
 <bt></br>
-  ```dart
+```dart
 /// 날씨 API
 class WeatherApi {
   // Singleton ▼ ==========================================
@@ -249,7 +249,9 @@ class WeatherApi {
 <details><summary><b>pagination</b></summary>
   주소 검색 기능을 개발하며 pagination을 구현하였습니다.
   주소 검색 API를 통해 첫 데이터를 받아오고, update를 통해 추가 데이터를 받아오게 구성하였습니다.
+  
  <bt></br> 
+  
 ```dart
 //address_search_widget.dart
   /// 주소 검색창
