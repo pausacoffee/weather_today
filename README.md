@@ -11,6 +11,12 @@
 - framework : flutter
 > provider, goRouter, dio, http
 
+## 사용한 API 
+- Free Weather API
+> https://www.weatherapi.com/
+- Doc
+> https://www.weatherapi.com/docs/
+
 ## 핵심 기능 
 - 관심지역의 날씨를 알 수 있습니다.
 - 사용자는 관심지역을 설정할 수 있습니다.
