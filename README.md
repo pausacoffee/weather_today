@@ -22,7 +22,8 @@
 ## 자랑하고 싶은 코드
 
 <details><summary><b>앱 initialize 후 HomePage로 리다이렉트</b></summary>
-  - goRouter를 사용하여 redirect를 구현하였습니다. 예를들어 app의 시작후 splahPage가 보여지는데, 데이터를 불러오기가 마치면 home page로 redirect하였습니다.
+  - goRouter를 사용하여 redirect를 구현하였습니다. 
+  예를들어 app의 시작후 splahPage가 보여지는데, 데이터를 불러오기가 마치면 home page로 redirect하였습니다.
   
 ```dart
 /// goRouter 을 사용하여 navigation 과 조건에 따라 redirect를 수행
@@ -34,9 +35,7 @@ class AppRouter {
   late final GoRouter _goRouter = GoRouter(
     refreshListenable: AppService(),
     initialLocation: APP_PAGE.splash.toPath,//앱의 시작시 splash Page로!
-    debugLogDiagnostics: true, //router 정보 콘솔에 출력
-    errorBuilder: (BuildContext context, GoRouterState state) =>
-        const ErrorPage(), //state.error.toString()으로 에러메세지 출력가능
+    ...
     routes: <GoRoute>[
       GoRoute(
         path: APP_PAGE.home.toPath,
@@ -87,6 +86,61 @@ class AppRouter {
     },
   );
 }
+```
+AppService는 redirect를 지원하는 Service이고, 변수 값을 가지고 있습니다.
+```dart
+class AppService with ChangeNotifier {
+  // Singleton ▼ ========================================
+  static final AppService _singleton = AppService._();
+
+  ///router redirect listener : permission, auth, Data 초기화, 앱 설정 등..
+  factory AppService() {
+    return _singleton;
+  }
+
+  AppService._();
+
+  // Variable ▼ ========================================
+  ///앱에 대한 init 여부
+  bool _initialized = false;
+  bool get initialized => _initialized;
+
+  ///허용 여부(permission_service)
+  bool _permissionState = false;
+  bool get permitted => _permissionState;
+  set permitted(bool value) {
+    _permissionState = value;
+    notifyListeners();
+  }
+
+  //Fucntion  ▼ ========================================
+  ///onAppStart가 완료되면 route redirect됨.
+  Future<void> onAppStart() async {
+    await initialize();
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    _initialized = true;
+
+    notifyListeners();
+  }
+
+  ///앱을 시작하기 위해 필요한 데이터와 세팅 로딩(오래 걸리는 것) 
+  Future<void> initialize() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    // 최초 permission 체크 한번
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _permissionState = prefs.getBool('initialize_permission') ?? false;
+
+    //load condition data from json
+    ConditionService().init();
+
+    // Config 초기화
+    AppConfig().init();
+  }
+}
+
 ```
 </details>
   
