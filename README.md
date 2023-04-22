@@ -147,8 +147,9 @@ class AppService with ChangeNotifier {
 </details>
   
 <details><summary><b>RestApi</b></summary>
-```dart
- weatherapi.com 와 통신할 공통 API를 만들어 관리하였습니다. 앱 어디에서건  WeatherApi 클래스를 통해 weatherapi.com으로부터 data를 얻어 올 수 있습니다.
+  weatherapi.com 와 통신할 공통 API를 만들어 관리하였습니다. 앱 어디에서건  WeatherApi 클래스를 통해 weatherapi.com으로부터 data를 얻어 올 수 있습니다. 
+
+  ```dart
 /// 날씨 API
 class WeatherApi {
   // Singleton ▼ ==========================================
