@@ -23,7 +23,7 @@
 
 <details><summary><b>앱 initialize 후 HomePage로 리다이렉트</b></summary>
   - goRouter를 사용하여 redirect를 구현하였습니다. 예를들어 app의 시작후 splahPage가 보여지는데, 데이터를 불러오기가 마치면 home page로 redirect하였습니다.
-<div markdown="1">
+  
 ```dart
 /// goRouter 을 사용하여 navigation 과 조건에 따라 redirect를 수행
 class AppRouter {
@@ -87,8 +87,7 @@ class AppRouter {
     },
   );
 }
-```dart
-</div>
+```
 </details>
   
 <details><summary><b>RestApi</b></summary>
