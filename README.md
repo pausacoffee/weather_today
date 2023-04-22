@@ -9,7 +9,7 @@
 ## 사용한 기술
 - dart
 - flutter
-- - provider, goRouter, dio, http
+> provider, goRouter, dio, http
 
 ## 핵심 기능 
 - 관심지역의 날씨를 알 수 있습니다.
@@ -20,6 +20,8 @@
 - 사용자는 scale을 지정할 수 있다.(바람 속도 단위, 기온 단위)
 
 ## 자랑하고 싶은 코드
+<details><summary><b>Scroller controller</b></summary>
+</details>
 
 ## 회고 / 느낀 점
 
