@@ -1,4 +1,4 @@
-enum APP_PAGE { splash, home, error, address, permission }
+enum APP_PAGE { splash, home, error, address, permission, setting }
 
 /// router 할 page의 path, name, title 을 정의함.
 extension AppPageExtension on APP_PAGE {
@@ -15,6 +15,8 @@ extension AppPageExtension on APP_PAGE {
       //sub
       case APP_PAGE.address:
         return "address";
+      case APP_PAGE.setting:
+        return "setting";
       default:
         return "/";
     }
@@ -32,6 +34,8 @@ extension AppPageExtension on APP_PAGE {
         return "ADDRESS";
       case APP_PAGE.permission:
         return "PERMISSION";
+      case APP_PAGE.setting:
+        return "SETTING";
       default:
         return "HOME";
     }
@@ -49,6 +53,8 @@ extension AppPageExtension on APP_PAGE {
         return "My App GEO";
       case APP_PAGE.permission:
         return "My App Permission";
+      case APP_PAGE.setting:
+        return "My App Setting";
       default:
         return "My App";
     }

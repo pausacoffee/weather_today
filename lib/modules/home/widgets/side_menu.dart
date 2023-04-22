@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../config/app_config.dart';
 import '../../../global/global_toggle_switch.dart';
-import '../../../service/condition_service.dart';
+import '../../../routes/app_page.dart';
+import '../../../repositories/code/condition_service.dart';
 import '../../../utils/locale_util.dart';
 import '../../../utils/text.dart';
 import '../model/home_view_model.dart';
@@ -43,7 +45,7 @@ class SideMenu extends StatelessWidget {
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: Image.asset(
-                                ConditionService().iconPath(
+                                ConditionRepository().iconPath(
                                     code: data.currentData.condition.code,
                                     isDay: data.currentData.isDay),
                                 width: 60.w,
@@ -62,15 +64,42 @@ class SideMenu extends StatelessWidget {
                     ),
                     _switchScale(),
                     ListTile(
-                      title: Text(data.currenTempScale()),
+                      leading: Icon(Icons.star_outline_rounded),
+                      title: Text(
+                        translation(_).favorite_location,
+                        style: TextStylePath.base16w400,
+                      ),
+                      onTap: () {
+                        context
+                            .pushNamed(APP_PAGE.address.toName)
+                            .then((value) => data.fetchViewModel());
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.share_rounded),
+                      title: Text(
+                        translation(_).share_weather,
+                        style: TextStylePath.base16w400,
+                      ),
                       onTap: () {
                         Navigator.pop(context);
                       },
                     ),
                     ListTile(
-                      title: Text('Item 2'),
+                      leading: Icon(Icons.map_outlined),
+                      title: Text(
+                        translation(_).news,
+                        style: TextStylePath.base16w400,
+                      ),
                       onTap: () {
                         Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.settings_outlined),
+                      title: Text(translation(_).setting),
+                      onTap: () {
+                        context.pushNamed(APP_PAGE.setting.toName);
                       },
                     ),
                   ],
@@ -90,8 +119,8 @@ class SideMenu extends StatelessWidget {
           ),
           title: Container(
             padding: EdgeInsets.only(
-              left: 30.w,
-              right: 30.w,
+              left: 20.w,
+              right: 20.w,
             ),
             child: GlobalToggleSwitch(
               current: AppConfig().temperatureScale,

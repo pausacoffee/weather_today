@@ -48,7 +48,7 @@ class AddressViewModel extends ChangeNotifier {
   /// 데이터 로딩
   bool get isProcess => _isProcess;
 
-  void setisProcess(bool data) {
+  void setIsProcess(bool data) {
     _isProcess = data;
 
     notifyListeners();
@@ -123,7 +123,7 @@ class AddressViewModel extends ChangeNotifier {
     } catch (e) {
       Logger().d(e);
     } finally {
-      setisProcess(false); //update UI
+      setIsProcess(false); //update UI
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../utils/locale_util.dart';
+import '../../../utils/text.dart';
 import '../widgets/address_search_widget.dart';
 
 class AddressPage extends StatelessWidget {
@@ -35,7 +36,10 @@ Widget _body() {
 AppBar _appBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.transparent,
-    title: Text(translation(context).favorite_location),
+    title: Text(
+      translation(context).favorite_location,
+      style: TextStylePath.title18w800,
+    ),
     centerTitle: true,
     actions: [
       IconButton(

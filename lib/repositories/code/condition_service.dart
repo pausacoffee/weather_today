@@ -4,20 +4,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
-import '../models/code/condition_code_model.dart';
-import '../models/code/language_model.dart';
+import '../../models/code/condition_code_model.dart';
+import '../../models/code/language_model.dart';
 
 /// condition 에 대한 code data 관리
-class ConditionService {
+class ConditionRepository {
   // Singleton ▼ ========================================
-  static final ConditionService _singleton = ConditionService._();
+  static final ConditionRepository _singleton = ConditionRepository._();
 
   /// condition에 대한 code data 관리
-  factory ConditionService() {
+  factory ConditionRepository() {
     return _singleton;
   }
 
-  ConditionService._();
+  ConditionRepository._();
   // Variable ▼ ========================================
 
   /// condition 에 대한 code data list
@@ -61,7 +61,9 @@ class ConditionService {
       );
 
       LanguageModel lan = condition.languages.firstWhere(
-        (lan) => lan.langIso == 'ko', //TODO:  //Localizations.localeOf(context)
+        (lan) =>
+            lan.langIso ==
+            'ko', //TODO:  //Localizations.localeOf(context).languageCode
 
         orElse: () => LanguageModel(
             dayText: '', langIso: '', langName: '', nightText: ''),
@@ -99,6 +101,28 @@ class ConditionService {
       Logger().d(e.toString());
     }
 
+    return result;
+  }
+
+  ///text
+  /// isDay : 1 = Yes, 0 = No
+  String text({required int code, required int isDay}) {
+    String result = "";
+    try {
+      switch (isDay) {
+        case 0:
+          result = dayText(code);
+          break;
+        case 1:
+          result = nightText(code);
+          break;
+        default:
+          result = dayText(code);
+          break;
+      }
+    } catch (e) {
+      Logger().d(e);
+    }
     return result;
   }
 

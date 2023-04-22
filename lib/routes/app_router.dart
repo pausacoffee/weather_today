@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:weather_today/modules/setting/view/setting_page.dart';
 
 import '../modules/address/view/address_page.dart';
 import '../modules/home/view/home_page.dart';
@@ -40,6 +41,31 @@ class AppRouter {
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 /// Fade In/Out Slide animation
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.ease;
+
+                final tween = Tween(begin: begin, end: end);
+                final curvedAnimation =
+                    CurvedAnimation(parent: animation, curve: curve);
+
+                return SlideTransition(
+                  position: tween.animate(curvedAnimation),
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                );
+              },
+            ),
+          ),
+          GoRoute(
+            path: APP_PAGE.setting.toPath,
+            name: APP_PAGE.setting.toName,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const SettingPage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
                 const begin = Offset(1.0, 0.0);
                 const end = Offset.zero;
                 const curve = Curves.ease;

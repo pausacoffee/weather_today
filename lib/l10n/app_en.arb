@@ -33,6 +33,8 @@
   
   "setting":"setting",
   "favorite_location":"favorite_location",
+  "news":"news",
+  "share_weather":"share_weather",  
 
   "error_occur":"error_occur",
   "error_404":"error_404",
@@ -68,6 +70,14 @@
   "direction_wnw":"direction_wnw",
   "direction_nw":"direction_nw",
   "direction_nnw":"direction_nnw",
+
+  "scale":"scale",
+  "arlarm":"arlarm",
+  "display":"display",
+  "review_app":"review_app",
+  "version":"version",
+  "improvements":"improvements",
+  "share_app":"share_app",  
 
   "end" : "끝"
 }

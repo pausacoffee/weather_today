@@ -33,6 +33,8 @@
   
   "setting":"세팅",
   "favorite_location":"관심 지역",
+  "news":"뉴스",
+  "share_weather":"날씨 공유하기",
 
   "error_occur":"에러 발생",
   "error_404":"404 오류",
@@ -68,6 +70,14 @@
   "direction_wnw":"서북서",
   "direction_nw":"북서",
   "direction_nnw":"북북서",
+
+  "scale":"단위",
+  "arlarm":"알림",
+  "display":"디스플레이",
+  "review_app":"응원하기",
+  "version":"버전",
+  "improvements":"개선사항 보내기",
+  "share_app":"친구에게 앱 공유하기",
 
   "end" : "끝"
 }

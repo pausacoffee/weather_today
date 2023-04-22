@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/app_config.dart';
 import '../modules/home/model/home_view_model.dart';
-import 'condition_service.dart';
+import '../repositories/code/condition_service.dart';
 
 class AppService with ChangeNotifier {
   // Singleton ▼ ========================================
@@ -52,7 +52,7 @@ class AppService with ChangeNotifier {
     _permissionState = prefs.getBool('initialize_permission') ?? false;
 
     //load condition data from json
-    ConditionService().init();
+    ConditionRepository().init();
 
     // Config 초기화
     AppConfig().init();

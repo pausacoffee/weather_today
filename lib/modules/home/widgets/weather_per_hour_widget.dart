@@ -8,7 +8,7 @@ import 'package:weather_today/utils/locale_util.dart';
 import '../../../global/global_button.dart';
 import '../../../models/weather/hour_model.dart';
 import '../../../models/weather/wind_degree_indicator.dart';
-import '../../../service/condition_service.dart';
+import '../../../repositories/code/condition_service.dart';
 import '../../../utils/color.dart';
 import '../../../utils/text.dart';
 import '../../../utils/utils.dart';
@@ -120,7 +120,7 @@ class WeatherPerHourWidget extends StatelessWidget {
                 height: 10.h,
               ),
               Image.asset(
-                ConditionService().iconPath(
+                ConditionRepository().iconPath(
                     code: data.hourList[index].condition.code,
                     isDay: data.hourList[index].isDay),
               ),

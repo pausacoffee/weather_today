@@ -39,7 +39,7 @@ class _AddressSearchWidgetState extends State<AddressSearchWidget> {
       children: [
         _searchAddress(),
         _favorites(),
-      ],
+      ].reversed.toList(),
     );
   }
 
@@ -103,7 +103,6 @@ class _AddressSearchWidgetState extends State<AddressSearchWidget> {
 
   /// 주소 검색창
   Widget _searchAddress() {
-    //380.h + MediaQuery.of(context).viewInsets.bottom
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       height: _isExpanded ? 350.h : 50.h,
@@ -193,7 +192,7 @@ class _AddressSearchWidgetState extends State<AddressSearchWidget> {
             ],
           ),
 
-          //검색결과
+          /// 주소 검색 결과 List
           _resultAddress(),
         ],
       ),
@@ -213,10 +212,10 @@ class _AddressSearchWidgetState extends State<AddressSearchWidget> {
             padding: EdgeInsets.only(right: 10.w, left: 10.w),
             child: InkWell(
               onTap: () {
-                //TODO: 검색된 주소로 current weather 재검색 및 pop
-                //location provier를 가지고 있는다? 변화시킨다?
-                //
-                //context.pop();
+                ///TODO:
+                ///1. 클릭과 함께 serach text field 는 지워짐
+                ///2. 클릭한 item은 도시 상세도시 과 같은 구성으로 lisTile이 만들어짐.
+                ///3. 관심 지역을 관리할 provider를 하나 만들자...
               },
               child: ListTile(
                 title: Text(

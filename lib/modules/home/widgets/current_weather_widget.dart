@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../../service/condition_service.dart';
+import '../../../repositories/code/condition_service.dart';
 import '../../../utils/locale_util.dart';
 import '../model/home_view_model.dart';
 
@@ -106,7 +106,7 @@ class CurrentWeatherWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              ConditionService().iconPath(
+              ConditionRepository().iconPath(
                   code: data.currentData.condition.code,
                   isDay: data.currentData.isDay),
               //width: 120.w,
@@ -115,7 +115,9 @@ class CurrentWeatherWidget extends StatelessWidget {
               width: 10.h,
             ),
             Text(
-              ConditionService().dayText(data.currentData.condition.code),
+              ConditionRepository().text(
+                  code: data.currentData.condition.code,
+                  isDay: data.currentData.isDay),
               style: GoogleFonts.lato(
                 fontSize: 16.sp,
                 color: Colors.white,
