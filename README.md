@@ -14,23 +14,23 @@ goRouter를 사용하여 page navigate를 처리하였고, MutiProvider를 사�
 > provider, goRouter, dio, http
 
 ## 사용한 주요 패키지
-  provider: ^6.0.5
-  logger: ^1.1.0
-  flutter_screenutil: ^5.7.0
-  flutter_dotenv: ^5.0.2
-  dio: ^4.0.4
-  http: ^0.13.4
-  shimmer: ^2.0.0
-  shared_preferences: ^2.1.0
-  permission_handler: ^10.2.0
-  go_router: ^6.5.5
-  lottie: ^2.3.2
-  flutter_animate: ^4.1.1+1
-  device_preview: ^1.1.0
-  intl: ^0.17.0
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  hive_generator: ^2.0.0
+  - provider: ^6.0.5
+  - logger: ^1.1.0
+  - flutter_screenutil: ^5.7.0
+  - flutter_dotenv: ^5.0.2
+  - dio: ^4.0.4
+  - http: ^0.13.4
+  - shimmer: ^2.0.0
+  - shared_preferences: ^2.1.0
+  - permission_handler: ^10.2.0
+  - go_router: ^6.5.5
+  - lottie: ^2.3.2
+  - flutter_animate: ^4.1.1+1
+  - device_preview: ^1.1.0
+  - intl: ^0.17.0
+  - hive: ^2.2.3
+  - hive_flutter: ^1.1.0
+  - hive_generator: ^2.0.0
 
 ## 사용한 API 
 - Free Weather API
