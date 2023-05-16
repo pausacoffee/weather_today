@@ -1,6 +1,8 @@
 # weather_today
 
 '오늘의 날씨'를 확인하게 도와주는 모바일 서비스입니다.
+goRouter를 사용하여 page navigate를 처리하였고, MutiProvider를 사용하여 상태관리를 하였습니다.
+또한, RestAPI 통신을 위해 base http 통신을 dio를 사용하여 처리하였습니다.
 
 ## 제작 기간 & 참여 인원
 - 시작일 : 2023년 4월 11일
@@ -10,6 +12,25 @@
 - language : dart
 - framework : flutter
 > provider, goRouter, dio, http
+
+## 사용한 주요 패키지
+  provider: ^6.0.5
+  logger: ^1.1.0
+  flutter_screenutil: ^5.7.0
+  flutter_dotenv: ^5.0.2
+  dio: ^4.0.4
+  http: ^0.13.4
+  shimmer: ^2.0.0
+  shared_preferences: ^2.1.0
+  permission_handler: ^10.2.0
+  go_router: ^6.5.5
+  lottie: ^2.3.2
+  flutter_animate: ^4.1.1+1
+  device_preview: ^1.1.0
+  intl: ^0.17.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.0
 
 ## 사용한 API 
 - Free Weather API
